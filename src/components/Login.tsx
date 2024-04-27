@@ -33,11 +33,11 @@ const Login = () => {
         throw new Error("Function not implemented.");
     }
 
-   
+   const loginText = "zvz";
 
     return (
         <div className="border rounded-lg border-gray-300 p-4 m-2 bg-gray-100 bg-opacity-90 space-y-1 shadow-lg">
-            <h1 className="text-2xl font-b pb-4">Log In</h1>
+            <h1 className="text-2xl font-b pb-4">{loginText}</h1>
             <div className="flex flex-col justify-center items-center space-y-2">
                 
                 {/*<BasicTextFields label="Email"/>
