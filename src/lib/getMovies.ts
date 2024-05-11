@@ -1,4 +1,4 @@
-import { Movie, SearchResults, Movies, Video } from "../../typings";
+import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast } from "../../typings";
 
 
 async function fetchFromTMDB(url: URL, cacheTime?: number) {
@@ -145,5 +145,118 @@ export async function getRelatedMoviesById(id: number){
     return data;
     
     }
+
+    export async function getPersonIdByName(personName?: string){
+      const url = new URL(`https://api.themoviedb.org/3/search/person?query=${personName}&include_adult=false&language=en-US&page=1`);
+      
+      //url.searchParams.set("language", "en-US");
+      
+      const options: RequestInit = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+        },
+      };
+      
+      const response = await fetch(url.toString(), options);
+      const data = (await response.json()) as Person;
+      return data.results[0]?.id;
+      }
+
+
+      export async function getMovieImages(movieId: number){
+        const url = new URL(`https://api.themoviedb.org/3/movie/${movieId}/images`);
+        
+        const options: RequestInit = {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+          },
+        };
+        
+        const response = await fetch(url.toString(), options);
+        const data = (await response.json()) as movieImages;
+        return data
+        }
+
+        export async function getMovieCast(movieId: number){
+          const url = new URL(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`);
+          
+          
+          const options: RequestInit = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+            },
+          };
+          
+          const response = await fetch(url.toString(), options);
+          const data = (await response.json()) as MovieCast;
+          return data
+          }
+
+
+          export async function getMoviesByActor(ActorId?: number){
+            const url = new URL(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_cast=${ActorId}`);
+            
+            
+            const options: RequestInit = {
+              method: "GET",
+              headers: {
+                accept: "application/json",
+                Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+              },
+            };
+            
+            const response = await fetch(url.toString(), options);
+            const data = (await response.json()) as SearchResults;
+            return data.results;
+            }
+
+
+            export async function getNameByActorID(ActorId?: number){
+              const url = new URL(`https://api.themoviedb.org/3/person/${ActorId}`);
+              
+              
+              const options: RequestInit = {
+                method: "GET",
+                headers: {
+                  accept: "application/json",
+                  Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+                },
+              };
+              
+              const response = await fetch(url.toString(), options);
+              const data = (await response.json()) as personProps;
+              return data.name;
+              }
+
+
+              export async function getMoviesByGenre(MovieId?: number){
+                const url = new URL(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${MovieId}`);
+                
+                
+                const options: RequestInit = {
+                  method: "GET",
+                  headers: {
+                    accept: "application/json",
+                    Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+                  },
+                };
+                
+                const response = await fetch(url.toString(), options);
+                const data = (await response.json()) as SearchResults;
+                return data.results;
+                }
+
+
+
+
+
+             
+              
 
 

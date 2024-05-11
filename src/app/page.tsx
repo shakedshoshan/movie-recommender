@@ -12,7 +12,7 @@ export default function Home() {
                               layout="fill"
                               style={{ zIndex: -1 }}
                           />
-      <div className="flex flex-col space-y-6 items-center pt-[70px]"> 
+      <div className="flex flex-col space-y-6 items-center pt-[60px] scale-90"> 
         <div className="items-center justify-center ">
                           <Image
                               alt="logo"
@@ -26,7 +26,7 @@ export default function Home() {
           
         
           {/* log in box*/}
-        <div className="scale-125">
+        <div className="scale-110">
           
           <Login />
 

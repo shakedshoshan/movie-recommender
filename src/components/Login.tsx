@@ -33,7 +33,7 @@ const Login = () => {
         throw new Error("Function not implemented.");
     }
 
-   const loginText = "zvz";
+   const loginText = "Login";
 
     return (
         <div className="border rounded-lg border-gray-300 p-4 m-2 bg-gray-100 bg-opacity-90 space-y-1 shadow-lg">

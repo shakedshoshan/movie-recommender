@@ -53,3 +53,33 @@ export type Genre = {
     [x: string]: any;
     key: string;
   };
+  
+  export type personProps = {
+    name: string,
+    id: number,
+    character: string;
+    profile_path: string
+};
+  export type Person = {
+    [x: string]: any;
+    page: number;
+    results: personProps[];
+  };
+
+  export type movieImage = {
+    [x: string]: any;
+    file_path: string;
+  };
+
+  export type movieImages = {
+    [x: string]: any;
+    backdrops: movieImage[];
+  };
+
+
+  export type MovieCast = {
+    [x: string]: any;
+    id: number;
+    cast: personProps[];
+  };
+

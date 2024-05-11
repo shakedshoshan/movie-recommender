@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
 export default function BasicRating() {
-  const [value, setValue] = React.useState<number | null>(2);
+  const [value, setValue] = React.useState<number | null>();
 
   return (
     <Box
@@ -21,7 +21,8 @@ export default function BasicRating() {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        className='stroke-white'
+        className='stroke-white bottom-1'
+        emptyIcon=""
       />
       
     </Box>

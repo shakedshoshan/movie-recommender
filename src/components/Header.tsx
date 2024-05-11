@@ -7,7 +7,7 @@ import GenreDropdown from "./GenreDropdown";
 
 function Header() {
   return (
-    <header className="fixed w-full z-20 top-0 flex items-center justify-between p-5 bg-gradient-to-t from-gray-200/0 via-gray-900/25 to-gray-900">
+    <header className="fixed w-full z-50 top-0 flex items-center justify-between p-5 bg-gradient-to-t from-gray-200/0 via-gray-900/25 to-gray-900">
       <Link href="/Main" className="mr-10">
         <Image
           alt="logo"
@@ -18,11 +18,18 @@ function Header() {
       </Link>
 
 
-      <div className="flex items-center  space-x-8">
-        <Link href="/Main/WishList" >
-          <p className="text-white hover:bg-black rounded py-2 px-2 ">WishList</p>
+      <div className="flex items-center space-x-8">
+
+        <Link href="/Main/Preferences" >
+            <p className="text-white hover:bg-black hover:bg-opacity-70 rounded py-2 px-2 ">Preferences</p>
         </Link>
+
+        <Link href="/Main/WishList" >
+          <p className="text-white hover:bg-black hover:bg-opacity-70 rounded py-2 px-2 ">WishList</p>
+        </Link>
+
         <GenreDropdown />
+
         <SearchInput />
 
       </div>

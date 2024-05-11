@@ -71,7 +71,7 @@ export function SignIn1() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="spouse-age " className="text-white">Age</Label>
+                <Label htmlFor="spouse-age" className="text-white">Age</Label>
                 <Input id="age" placeholder="Enter your age" type="age" />
               </div>
               <div className="space-y-2">

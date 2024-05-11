@@ -5,6 +5,7 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import getImagePath from "@/lib/getImagePath";
 import { Movie } from "../../typings";
+import Rating from "./Rating";
 
 
 Autoplay.globalOptions = { delay: 8000 };
@@ -15,7 +16,7 @@ function CarouselBanner({ movies }: { movies: Movie[] }) {
       ]);
   
     return (
-        <div className="overflow-hidden lg:-mt-40 relative cursor-pointer"
+        <div className="overflow-hidden lg:-mt-10 relative cursor-pointer"
             ref={emblaRef}>
             
             <div className="flex">
@@ -29,11 +30,13 @@ function CarouselBanner({ movies }: { movies: Movie[] }) {
                 height={1080}
                     />
 
-                <div className="hidden lg:inline absolute mt-0 top-0 pt-40 xl:pt-52 left-0 lg:mt-40 bg-transparent z-20 h-full w-full bg-gradient-to-r from-gray-900/90 via-transparent to-transparent p-10 space-y-5 text-white ">
+                <div className="hidden lg:inline absolute mt-0 top-0 pt-40 xl:pt-52 left-0 lg:mt-10 bg-transparent z-20 h-full w-full bg-gradient-to-r from-gray-900/90 via-transparent to-transparent p-10 space-y-5 text-white ">
                     <h2 className="text-5xl font-bold max-w-xl z-50">
-                    {movie.title}
+                    {movie.title} 
                     </h2>
-                    <p className="max-w-xl line-clamp-3">{movie.overview}</p>
+                    <p className="max-w-xl line-clamp-6">{movie.overview}</p>
+                    <p>{movie.vote_average}  ({movie.vote_count})</p>
+    
             </div>
                 </div>
                 ))}
