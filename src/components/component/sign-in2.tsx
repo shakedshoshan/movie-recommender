@@ -150,27 +150,6 @@ export function SignIn2() {
             <h1 className="text-2xl text-white font-semibold">Personal Preferences</h1>
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div className="space-y-2">
-              <div className=" grid grid-rows-1 grid-cols-3 gap-1 pl-10">
-              <div>
-              <select className="rounded-lg scale-50 p-4"  value={selectedValue} onChange={handleChange}>
-                <option className="rounded-lg scale-50 p-4" value="dd">Select genre1</option>
-                <option className="rounded-lg scale-50 p-4" value="Action">Action</option>
-                <option className="rounded-lg scale-50 p-4" value="Adventure">Adventure</option>
-                
-              </select>
-              <p>Selected Genre: {selectedValue}</p>
-            </div>
-            <div>
-              <select className="rounded-lg scale-50 p-4"  value={selectedValue} onChange={handleChange}>
-                <option className="rounded-lg scale-50 p-4" value="dd">Select genre1</option>
-                <option className="rounded-lg scale-50 p-4" value="Action">Action</option>
-                <option className="rounded-lg scale-50 p-4" value="Adventure">Adventure</option>
-                
-              </select>
-              <p>Selected Genre: {selectedValue}</p>
-            </div>
-            </div>
-
                 <Label htmlFor="favorite-genres" className="text-white" >Favorite Genres</Label>
                 <div className=" grid grid-rows-1 grid-cols-3 gap-5">
                   <div className="">
@@ -279,10 +258,10 @@ export function SignIn2() {
             </div>
           </div>
         </div>
-        {/* <Link href="\SignIn\preferences\moviesRating">
-          <Button className="w-full p-6 bg-slate-700  text-2xl">Submit</Button>
-        </Link> */}
+        <Link href="\SignIn\preferences\moviesRating">
         <button className="w-full p-6 bg-slate-700  text-2xl" onClick={apiCall}>Submit</button>
+        </Link>
+        {/* <button className="w-full p-6 bg-slate-700  text-2xl" onClick={apiCall}>Submit</button> */}
 
 
       </div>
@@ -292,5 +271,3 @@ export function SignIn2() {
 function setInputValue(value: any) {
   throw new Error("Function not implemented.")
 }
-
-

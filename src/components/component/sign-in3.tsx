@@ -10,10 +10,30 @@ import { cn } from "@/lib/utils";
 import Rating from "../Rating";
 import Link from "next/link";
 import { getColdStartMovies } from "@/lib/getColdStartMovies";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 export async function SignIn3() {
-    const coldStartMovies = await getColdStartMovies(0, "Action","Drama","","Sydney Sweeney","Adam Sandler");
+  let token = Cookies.get("token");
+  console.log(token);
+  axios.post('http://localhost:4000/fetchPreferences', token)
+  .then(response => {
+    console.log(response.data);
+    console.log("afterPost");
+    if (response.status === 200) {
+      // Handle success if needed
+    } else {
+
+    }
+  })
+  .catch(error => {
+    // setError("An error occurred. Please try again later.");
+    console.error('Error:', error);
+  });
+
+  const coldStartMovies = await getColdStartMovies(0, "Action","Drama","","Sydney Sweeney","Adam Sandler");
+
   return (
     <>
       <div className="py-12 max-w-7xl">
