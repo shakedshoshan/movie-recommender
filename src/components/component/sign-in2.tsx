@@ -100,10 +100,11 @@ export function SignIn2() {
       
       // console.log("Token:")
       // console.log(token); // Log the extracted token value
-      
+      console.log("Sign-in2");
       console.log(preferences);
       let token = Cookies.get("token");
       console.log(token);
+      console.log("Sign-in2");
 
       
        let preferencesAndToken = { token: token, preferences: preferences };

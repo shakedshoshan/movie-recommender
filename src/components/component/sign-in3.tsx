@@ -4,33 +4,27 @@
  */
 import { Button } from "@/components/ui/button"
 import MovieCardRating from "../MovieCardRating"
-import { getPopularMovies, getTopRatedMovies } from "@/lib/getMovies";
-
-import { cn } from "@/lib/utils";
 import Rating from "../Rating";
 import Link from "next/link";
 import { getColdStartMovies } from "@/lib/getColdStartMovies";
-import axios from 'axios';
+import { getColdStartMovies2 } from "@/lib/getColdStartMovies2";
 import Cookies from 'js-cookie';
 
 
 export async function SignIn3() {
-  let token = Cookies.get("token");
-  console.log(token);
-  axios.post('http://localhost:4000/fetchPreferences', token)
-  .then(response => {
-    console.log(response.data);
-    console.log("afterPost");
-    if (response.status === 200) {
-      // Handle success if needed
-    } else {
 
-    }
-  })
-  .catch(error => {
-    // setError("An error occurred. Please try again later.");
-    console.error('Error:', error);
-  });
+
+  console.log("Sign-in2");
+  let token = await Cookies.get("token");
+  console.log(token);
+  console.log("Sign-in2");
+  // console.log("TOKEKEKEKEKEEKEK")
+  // console.log(typeof(token))
+  // console.log(token);
+  // //const coldStartMovies2 = await getColdStartMovies2(token);
+  // console.log("zxvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
+  // console.log(coldStartMovies2);
+  console.log(token)
 
   const coldStartMovies = await getColdStartMovies(0, "Action","Drama","","Sydney Sweeney","Adam Sandler");
 
