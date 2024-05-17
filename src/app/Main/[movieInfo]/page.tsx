@@ -47,8 +47,19 @@ async function MoviePage({
 
   const cast = await getMovieCast(id);
 
+  let trailerKey = trailerId?.results[0]?.key || "" ;
 
-  const trailerKey = trailerId?.results[0]?.key || "" ;
+
+  for(let i = 0; i<trailerId?.results?.length;i++){
+    if (trailerId?.results[i]?.name === "Trailer" || trailerId?.results[i]?.name == "trailer"){
+      trailerKey = trailerId?.results[i]?.key
+      break;
+    } else if(trailerId?.results[i]?.name.includes("trailer"))
+    {
+      trailerKey = trailerId?.results[i]?.key
+    }
+  }
+  
 
    
   return (
@@ -64,12 +75,12 @@ async function MoviePage({
       <div className="max-w-6xl w-screen mx-auto text-white space-y-6 flex flex-col  mt-32 xl:mt-42">
       <p className="font-bold text-3xl">Images: </p>
       <div className="flex space-x-4 overflow-scroll scrollbar-hide pt-16 pb-16 pl-24 scale-125">
-        {images.backdrops.slice(4, 14).map((image) => (
-          <Image className="hover:scale-150 hover:border-solid hover:border-stone-200 hover:border-2 transition"
+        {images.backdrops.slice(5, 15).map((image) => (
+          <Image className="hover:scale-150 hover:border-solid hover:border-stone-200 hover:border-2 transition w-auto h-auto"
           src={getImagePath(image.file_path, true)}
           alt="image"
-          width={400}
-          height={350}
+          width={300}
+          height={250}
           key={getImagePath(image.file_path, true)}
               />
           ))}
@@ -133,7 +144,7 @@ async function MoviePage({
 
       <h1 className="font-bold text-3xl pt-12 pb-8">Trailer:</h1>
 
-      <VideoPlayer keys= {trailerKey} w = '1200' h='700' />
+      <VideoPlayer keys= {trailerKey} w = '1200' h='700'/>
 
      <div className="scale-125 pt-56">
       <MoviesCarousel movies={relatedMovies.results} title="You may also like"/>

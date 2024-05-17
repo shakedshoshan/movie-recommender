@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import Link from "next/link"
 import axios from 'axios';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
 
@@ -14,8 +14,16 @@ import Cookies from 'js-cookie';
 
 
 export function SignIn1() {
-  console.log(document.getElementById('printButton'));
-  const input = document.getElementById('firstName');
+  //console.log(document.getElementById('printButton'));
+  //const input = document.getElementById('firstName');
+
+    useEffect(() => {
+        console.log("in useEffect si1");
+        console.log(document.getElementById('printButton'));
+        const input = document.getElementById('firstName');
+        
+    }, []); 
+
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false); // New state to track success
@@ -91,18 +99,18 @@ export function SignIn1() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="spouse-name" className="text-white">Password</Label>
-              <Input ref={inputRefPassword} id="spouse-name" placeholder="Enter password" />
+              <Input type="password" ref={inputRefPassword} id="spouse-name" placeholder="Enter password" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email" className="text-white">Email</Label>
               <div className="flex items-center">
-                <Input id="email" placeholder="Enter your email" type="email" />
+                <Input  id="email" placeholder="Enter your email" type="email"/>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="spouse-age" className="text-white">Age</Label>
-                <Input id="age" placeholder="Enter your age" type="age" />
+                <Label htmlFor="spouse-age" className="text-white">Date of birth</Label>
+                <Input id="age" placeholder="Enter your age" type="date" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="spouse-gender" className="text-white">Gender</Label>
@@ -122,7 +130,7 @@ export function SignIn1() {
             <div>
 
                 <Link href="/SignIn/preferences">
-                  <button className="hover:scale-115 w-full p-6 bg-slate-700 text-2xl" onClick={apiCall}>Submit</button>
+                  <button className="w-full p-3 bg-slate-700  text-2xl rounded-xl text-white hover:bg-gray-800 transition " onClick={apiCall}>Submit</button>
                 </Link>
                 {/* <button className="hover:scale-115 w-full p-6 bg-slate-700 text-2xl" onClick={apiCall}>Submit</button> */}
             </div>

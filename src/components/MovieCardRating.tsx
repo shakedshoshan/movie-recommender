@@ -27,7 +27,7 @@ async function MovieCardRaring({ movie }: { movie: Movie }) {
     
     
      <Image
-      className=" lg:min-w-[50px] h-fit object-cover object-center shadow-md shadow-gray-900 drop-shadow-2xl rounded-sm"
+      className=" lg:min-w-[50px]  object-cover object-center shadow-md shadow-gray-900 drop-shadow-2xl rounded-sm w-72 h-full"
       src={getImagePath(movie.poster_path)}
       alt={movie.title}
       width={300}

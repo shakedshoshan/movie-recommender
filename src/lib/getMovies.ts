@@ -1,4 +1,5 @@
-import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast } from "../../typings";
+import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast, Origins, Origin } from "../../typings";
+import Cookies from 'js-cookie';
 
 
 async function fetchFromTMDB(url: URL, cacheTime?: number) {
@@ -251,6 +252,35 @@ export async function getRelatedMoviesById(id: number){
                 const data = (await response.json()) as SearchResults;
                 return data.results;
                 }
+
+
+              export function getTokenId(){
+                console.log("getTokenId");
+                const token = Cookies.get("token");
+                console.log(token);
+                  
+                return token;
+                }
+
+
+                export async function getOrigins(){
+                  const url = new URL(`https://api.themoviedb.org/3/configuration/countries?language=en-US`);
+                  
+                  
+                  const options: RequestInit = {
+                    method: "GET",
+                    headers: {
+                      accept: "application/json",
+                      Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+                    },
+                  };
+                  
+                  const response = await fetch(url.toString(), options);
+                  const data = (await response.json()) as Origin;
+                  //console.log(data[5].english_name)
+                  return data;
+                  }
+  
 
 
 

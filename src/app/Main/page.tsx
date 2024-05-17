@@ -28,7 +28,7 @@ async function Main() {
   
 
   return (
-    <html>
+    
     <div className="flex flex-col space-y-2">
       <CarouselBannerWrapper />
     <div className="flex flex-col space-y-6 xl:-mt-48">
@@ -42,9 +42,9 @@ async function Main() {
         { coldStartMovies.map((movie) => ( 
             
                 
-            <div className="rounded-2xl hover:scale-125 transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
+            <div className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
               <a href={`/Main/${movie.id}-${movie.title}`}>
-              <div className="pb-4 pt-2  transition"><MovieCardRating key={movie.id} movie={movie}  /> </div>
+              <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie}  /> </div>
               </a>
               <div className="flex items-center space-x-12 justify-center pb-2">
                     <div className="pl-2"><Rating  /></div>
@@ -69,7 +69,7 @@ async function Main() {
     
     </div>
     </div>
-    </html>
+    
   );
 }
 
