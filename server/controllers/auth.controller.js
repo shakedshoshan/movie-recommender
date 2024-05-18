@@ -34,6 +34,41 @@ exports.signUp = async (req, res) => {
   }
 };
 
+exports.logIn = async (req, res) => {
+  try {
+    console.log("here0")
+    console.log(req.body.userName)
+    const user = await authService.findExistingUserByUserName(req.body.userName);
+    console.log("here1")
+    if(user){
+      let submittedPass = req.body.password; 
+      let storedPass = user.password; 
+
+      const passwordMatch = await bcrypt.compare(submittedPass, storedPass);
+      if (passwordMatch) {
+        console.log("login");
+        console.log(user.id);
+        console.log("login");
+        const token = jwt.sign({ userId: user.id }, process.env.TOKEN_SECRET, { expiresIn: "1h" });
+        res.setHeader("Set-Cookie", cookie.serialize("token", token, { httpOnly: false, maxAge: 60 * 60 }));
+        console.log("Succesful login")
+    
+        res.status(200).json({ token });
+      }
+      else {
+        console.log("WrongPassword")
+        res.status(400).json({ error: "Wrong Password" });
+      }
+    }
+    else{
+      console.log("Wrong User Name")
+      res.status(400).json({ error: "Wrong User Name" });
+    }
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+};
+
 exports.getIdFromToken = async (req, res) => {
   try {
     // Extract the cookie from the request headers using cookie-parser
@@ -70,33 +105,4 @@ exports.getIdFromToken = async (req, res) => {
 
 
 
-exports.logIn = async (req, res) => {
-  try {
-    console.log("here0")
-    console.log(req.body.userName)
-    const user = await authService.findExistingUserByUserName(req.body.userName);
-    console.log("here1")
-    if(user){
-      let submittedPass = req.body.password; 
-      let storedPass = user.password; 
 
-      const passwordMatch = await bcrypt.compare(submittedPass, storedPass);
-      if (passwordMatch) {
-        const token = jwt.sign({ userId: user.id }, process.env.TOKEN_SECRET, { expiresIn: "1h" });
-        res.setHeader("Set-Cookie", cookie.serialize("token", token, { httpOnly: false, maxAge: 60 * 60 }));
-        console.log("Succesful login")
-        res.status(200).json({ token });
-      }
-      else {
-        console.log("WrongPassword")
-        res.status(400).json({ error: "Wrong Password" });
-      }
-    }
-    else{
-      console.log("Wrong User Name")
-      res.status(400).json({ error: "Wrong User Name" });
-    }
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-};

@@ -55,11 +55,10 @@ const Login = () => {
 
         //   Cookies.set('token', token, { expires: 1,});
         const token = response.data.token;
-        console.log(token)
         const expires = new Date(Date.now() + 3600000); // 1 hour from now
-        document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/ ;` ;
+        document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/`;
         console.log(response.data.token);
-        // document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
+        document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
         console.log("resposnse token")
         console.log(token)
 

@@ -1,7 +1,29 @@
 import { Genres, Movie } from "../../typings";
 import { getPersonIdByName } from "./getMovies";
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
+
+export async function getPreferences(){
+  console.log("SignFunc");
+  let token =  Cookies.get("token");
+  console.log(token);
+  console.log("SignFunc");
+  axios.post('http://localhost:4000/fetchPreferences', token)
+  .then(response => {
+    console.log("get preferences");
+    if (response.status === 200) {
+      console.log(response.data.preferences)
+      return response.data.preferences;
+    } else {
+      setError("Bad request. Please check your credentials.");
+    }
+  })
+  .catch(error => {
+    setError("An error occurred. Please try again later.");
+    console.error('Error:', error);
+});
+}
 
 export async function getColdStartMovies(year: number, genre1: string, genre2?: string, genre3?: string, person1?: string, person2?: string, company?: string, country?: string ) {
 
@@ -125,4 +147,8 @@ export async function getColdStartMovies(year: number, genre1: string, genre2?: 
     return data.results.slice(0, limit);
   }
   
+
+function setError(arg0: string) {
+  throw new Error("Function not implemented.");
+}
   

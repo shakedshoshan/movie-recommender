@@ -1,5 +1,5 @@
 import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast } from "../../typings";
-
+import Cookies from 'js-cookie';
 
 async function fetchFromTMDB(url: URL, cacheTime?: number) {
   url.searchParams.set("include_adult", "false");
@@ -251,6 +251,14 @@ export async function getRelatedMoviesById(id: number){
                 const data = (await response.json()) as SearchResults;
                 return data.results;
                 }
+
+                export function getTokenId(){
+                  console.log("getTokenId");
+                  let token = Cookies.get("token");
+                  console.log(token);
+                    
+                  return token;
+                  }
 
 
 

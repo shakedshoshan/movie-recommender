@@ -10,7 +10,7 @@ router.post("/logIn", authController.logIn);
 router.get("/getIdFromToken", authController.getIdFromToken);
 
 router.post("/setPreferences", preferencesController.setPreferences);
-router.get("/fetchPreferences", preferencesController.fetchPreferences);
+router.post("/fetchPreferences", preferencesController.fetchPreferences);
 
 
 
