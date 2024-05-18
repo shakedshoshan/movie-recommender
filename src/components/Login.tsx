@@ -89,11 +89,11 @@ const Login = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-4 scale-105 w-60">
                 <div className="space-y-2 ">
-              <Label htmlFor="name" className="text-white">User Name</Label>
+              <Label htmlFor="name" className="text-black">User Name</Label>
               <Input ref={inputRefUserName} id="firstName" placeholder="Enter username" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="spouse-name" className="text-white">Password</Label>
+              <Label htmlFor="spouse-name" className="text-black">Password</Label>
               <Input ref={inputRefPassword} id="spouse-name" placeholder="Enter password" />
             </div>
                 {/* <InputField

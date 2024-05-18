@@ -24,7 +24,7 @@ function WishListButton({ wl }: { wl: boolean }) {
         <Button onClick={handleClick} className="bg-[#2c315b] border-[#1d213f] space-x-2">
                   <Image
                               alt="Add"
-                              src="https://cdn.iconfinder.com/stored_data/1490463/128/png?token=1706195605-6j73USRLt7KPoeuDi4D%2BydmcvdDyH8m%2BszhJbcDiCkw%3D" 
+                              src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZGF0YS1uYW1lPSJMYXllciAyIj48cGF0aCBkPSJNMTYgMjlhMTMgMTMgMCAxIDEgMTMtMTMgMTMgMTMgMCAwIDEtMTMgMTNabTAtMjRhMTEgMTEgMCAxIDAgMTEgMTFBMTEgMTEgMCAwIDAgMTYgNVoiIGZpbGw9IiNmZmZmZmYiIGNsYXNzPSJmaWxsLTAwMDAwMCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNiAyM2ExIDEgMCAwIDEtMS0xVjEwYTEgMSAwIDAgMSAyIDB2MTJhMSAxIDAgMCAxLTEgMVoiIGZpbGw9IiNmZmZmZmYiIGNsYXNzPSJmaWxsLTAwMDAwMCI+PC9wYXRoPjxwYXRoIGQ9Ik0yMiAxN0gxMGExIDEgMCAwIDEgMC0yaDEyYTEgMSAwIDAgMSAwIDJaIiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48L2c+PHBhdGggZD0iTTAgMGgzMnYzMkgweiIgZmlsbD0ibm9uZSI+PC9wYXRoPjwvc3ZnPg==" 
                               width={20}
                               height={20}
                           />

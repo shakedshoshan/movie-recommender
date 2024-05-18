@@ -51,6 +51,7 @@ export type Genre = {
 
   export type Video = {
     [x: string]: any;
+    name: string,
     key: string;
   };
   
@@ -82,4 +83,18 @@ export type Genre = {
     id: number;
     cast: personProps[];
   };
+
+  export type Origins = {
+    [x: string]: any;
+    res: Origin[];
+  };
+
+  export type Origin = {
+    [x: string]: any;
+    iso_3166_1: string; 
+    english_name: string;
+    
+  };
+
+  
 

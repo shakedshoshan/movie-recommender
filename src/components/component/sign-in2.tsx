@@ -18,15 +18,45 @@ import { Button } from "@/components/ui/button"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import Link from "next/link"
 import axios from 'axios';
-import React, { useState, useRef, SetStateAction } from 'react';
+import React, { useState, useRef, SetStateAction, useEffect } from 'react';
 import Cookies from 'js-cookie';
+import {getOrigins, getTokenId } from "@/lib/getMovies"
+import { Origin, Origins } from "../../../typings"
 
-export function SignIn2() {
+export function SignIn2(originList: Origin) {
 
-  console.log(document.getElementById('printButton'));
-  const input = document.getElementById('firstName');
 
-  const [error, setError] = useState<string | null>(null);
+//console.log(originList.english_name[1])
+
+const selectOriginRef = useRef<HTMLSelectElement>(null);
+
+  useEffect(() => {
+    const selectOrigin = selectOriginRef.current;
+    if (selectOrigin) {
+      // Your logic using the selectOrigin element
+      for (let i = 0; i < 10; i++) {
+        const optionElement = document.createElement('option');
+        //console.log(originList[i])
+        //optionElement.text = originList[i]?.english_name;
+        selectOrigin.appendChild(optionElement);
+      }
+    }
+  }, []);
+
+//console.log(selectOriginRef)
+
+
+  useEffect(() => {
+    console.log(document.getElementById('printButton'));
+    const input = document.getElementById('firstName');
+    
+}, []); 
+
+  //console.log(document.getElementById('printButton'));
+
+  //const input = document.getElementById('firstName');
+
+  const [error, setError] = useState<string | null>("");
 
 
   const inputRefGener1 = useRef<HTMLInputElement>(null);
@@ -152,11 +182,11 @@ export function SignIn2() {
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="favorite-genres" className="text-white" >Favorite Genres</Label>
-                <div className=" grid grid-rows-1 grid-cols-3 gap-5">
+                <div className=" grid grid-rows-1 grid-cols-3 gap-9 pb-6 ">
                   <div className="">
-                    <Label htmlFor="spouse-gender" className="text-white">Genre 1</Label>
+                    <Label htmlFor="spouse-gender" className="text-white ">Genre 1</Label>
                     <div>
-              <select className = "rounded-lg scale-50 p-4" value={selectedeGenre1} onChange={handleChangeGenre1}>
+              <select className = "rounded-lg text-xl py-2 px-10 " value={selectedeGenre1} onChange={handleChangeGenre1}>
               <option value="">Select genre1</option>
                <option value="Action">Action</option>
                 <option value="Adventure">Adventure</option>
@@ -172,7 +202,7 @@ export function SignIn2() {
                 <option value="Horror">Horror</option>
                 <option value="History">History</option>
                 <option value="Romance">Romance</option>
-                <option value="Science Fiction"></option>
+                <option value="Science Fiction">Science Fiction</option>
                 <option value="Thriller">Thriller</option>
                 <option value="War">War</option>
                 <option value="Western">Western</option>
@@ -181,7 +211,7 @@ export function SignIn2() {
                   </div>
                   <div>
             <Label htmlFor="spouse-gender" className="text-white">Genre 2</Label>
-              <select className = "rounded-lg scale-50 p-4"  value={selectedeGenre2} onChange={handleChangeGenre2}>
+              <select className = "rounded-lg text-xl py-2 px-10 "  value={selectedeGenre2} onChange={handleChangeGenre2}>
               <option value="">Select genre1</option>
                <option value="Action">Action</option>
                 <option value="Adventure">Adventure</option>
@@ -197,7 +227,7 @@ export function SignIn2() {
                 <option value="Horror">Horror</option>
                 <option value="History">History</option>
                 <option value="Romance">Romance</option>
-                <option value="Science Fiction"></option>
+                <option value="Science Fiction">Science Fiction</option>
                 <option value="Thriller">Thriller</option>
                 <option value="War">War</option>
                 <option value="Western">Western</option>
@@ -205,27 +235,27 @@ export function SignIn2() {
                   </div>
                   <div>
                     <Label htmlFor="spouse-gender" className="text-white">Genre 3</Label>
-                    <select className = "rounded-lg scale-50 p-4"  value={selectedeGenre3} onChange={handleChangeGenre3}>
-              <option value="">Select genre1</option>
-               <option value="Action">Action</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Animation">Animation</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Crime">Crime</option>
-                <option value="Documentary">Documentary</option>
-                <option value="Drama">Drama</option>
-                <option value="Family">Family</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Music">Music</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Horror">Horror</option>
-                <option value="History">History</option>
-                <option value="Romance">Romance</option>
-                <option value="Science Fiction"></option>
-                <option value="Thriller">Thriller</option>
-                <option value="War">War</option>
-                <option value="Western">Western</option>
-              </select>
+                    <select className = "rounded-lg text-xl py-2 px-10 "  value={selectedeGenre3} onChange={handleChangeGenre3}>
+                    <option value="">Select genre1</option>
+                    <option value="Action">Action</option>
+                      <option value="Adventure">Adventure</option>
+                      <option value="Animation">Animation</option>
+                      <option value="Comedy">Comedy</option>
+                      <option value="Crime">Crime</option>
+                      <option value="Documentary">Documentary</option>
+                      <option value="Drama">Drama</option>
+                      <option value="Family">Family</option>
+                      <option value="Fantasy">Fantasy</option>
+                      <option value="Music">Music</option>
+                      <option value="Mystery">Mystery</option>
+                      <option value="Horror">Horror</option>
+                      <option value="History">History</option>
+                      <option value="Romance">Romance</option>
+                      <option value="Science Fiction">Science Fiction</option>
+                      <option value="Thriller">Thriller</option>
+                      <option value="War">War</option>
+                      <option value="Western">Western</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -243,11 +273,14 @@ export function SignIn2() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="latest-year" className="text-white">Latest Year</Label>
-              <Input ref={inputRefLatestYear} id="latest-year" placeholder="Enter latest year" />
+              <Input type="number" ref={inputRefLatestYear} id="latest-year" placeholder="Enter latest year" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="origin" className="text-white">Origin</Label>
               <Input ref={inputRefOrigin} id="origin" placeholder="Enter origin" />
+              <select id="mySelect" ref={selectOriginRef}>
+                {/* Other options */}
+              </select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="favorite-company" className="text-white">Favorite Film Studio</Label>
@@ -255,12 +288,12 @@ export function SignIn2() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="max-runtime" className="text-white">Maximum Run Time</Label>
-              <Input ref={inputRefRunTime} id="max-runtime" placeholder="Enter maximum run time" />
+              <Input type="number" ref={inputRefRunTime} id="max-runtime" placeholder="Enter maximum run time" />
             </div>
           </div>
         </div>
         <Link href="\SignIn\preferences\moviesRating">
-        <button className="w-full p-6 bg-slate-700  text-2xl" onClick={apiCall}>Submit</button>
+        <button className="w-full p-3 bg-slate-700  text-2xl rounded-xl text-white hover:bg-gray-800 transition" onClick={apiCall}>Submit</button>
         </Link>
         {/* <button className="w-full p-6 bg-slate-700  text-2xl" onClick={apiCall}>Submit</button> */}
 

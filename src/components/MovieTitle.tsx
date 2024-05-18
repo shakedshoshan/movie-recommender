@@ -30,11 +30,16 @@ export default function MoviePage({ movie }: { movie: Movie }){
                     <h2 className="text-5xl font-bold max-w-xl z-20 pb-2">
                     {movie.title}
                     </h2>
-                    <p className="max-w-xl text-xl ">{movie.overview}</p>
+                    <p className="max-w-xl text-xl pb-10 pt-6">{movie.overview}</p>
+
+                    <div className="flex items-center z-30 space-x-20 left-24 absolute scale-110">
+                    <Rating />
+                    <WishListButton  wl={false}/>
+                </div>
                     
                  </div>
                  
-                 <div className="py-52 px-16 bg-transparent z-20">
+                 <div className="py-52 px-16 bg-transparent z-20 w-auto h-auto">
                  <Image
                           src={getImagePath(movie.poster_path, false)}
                           alt=""
@@ -43,10 +48,7 @@ export default function MoviePage({ movie }: { movie: Movie }){
                         />
                     </div>
                 </div>
-                <div className="flex items-center z-30 space-x-20 bottom-96 left-28 absolute scale-110">
-                    <Rating />
-                    <WishListButton  wl={false}/>
-                </div>
+                
                 </div>
 
                 
