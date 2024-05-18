@@ -1,4 +1,5 @@
-
+//"use client"
+import { Movie } from "../../../typings";
 import CarouselBannerWrapper from "@/components/CarouselBannerWrapper";
 import MovieCardRating from "@/components/MovieCardRating";
 import MoviesCarousel from "@/components/MoviesCarousel";
@@ -11,25 +12,36 @@ import { title } from "process";
 import WishListButton from "@/components/WishListButton";
 import Link from "next/link";
 import AddedToWishList from "@/components/AddedToWishList";
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import error from "next/error";
+import Cookies from 'js-cookie';
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from 'next/headers'
 
 
 async function Main() {
+
   const topRatedMovies = await getTopRatedMovies();
   const popularMovies = await getPopularMovies();
-  const coldStartMovies = await getColdStartMovies(0, "Action","Drama");
+  const coldStartMovies = await getColdStartMovies(0, "Comedy","Fantasy");
   const FavoriteActorMovies = await getMoviesByActor(525);
   const ActorName = await getNameByActorID(525);
   const FavoriteGenreMovie = await getMoviesByGenre(12);
   //const GenreName = await name_to_genreID(12);
+  console.log("At Main Page")
   const wl = true;
- 
+
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')
+
+  console.log(token);
 
   
 
   return (
     
     <div className="flex flex-col space-y-2">
+      <Suspense fallback={<div>Loading...</div>}>
       <CarouselBannerWrapper />
     <div className="flex flex-col space-y-6 xl:-mt-48">
 
@@ -59,15 +71,17 @@ async function Main() {
         </div>
         
 
-
+        
       <MoviesCarousel movies={topRatedMovies} title="Top Rated" />
+      
       <MoviesCarousel movies={popularMovies} title="Popular" />
+      
       <MoviesCarousel movies={FavoriteActorMovies} title="Favorite Actor - " name = {ActorName} />
       <MoviesCarousel movies={FavoriteGenreMovie} title="Favorite Genre - " name = "Adventure" />
       
-      
     
     </div>
+    </Suspense>
     </div>
     
   );
