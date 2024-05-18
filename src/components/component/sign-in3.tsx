@@ -11,6 +11,7 @@ import Link from "next/link";
 // import { getColdStartMovies } from "@/lib/getColdStartMovies";
 import Cookies from 'js-cookie';
 import { getTokenId } from "@/lib/getMovies";
+import { getColdStartMovies } from "@/lib/getColdStartMovies";
 
 
 export async function SignIn3() {
@@ -56,16 +57,14 @@ export async function SignIn3() {
         </div>
         <div className="relative flex min-h-screen flex-col justify-center overflow-hidden py-6 pl-4 pr-4 ">
         <div className="grid grid-cols-4 gap-12">
-        { coldStartMovies.map((movie) => ( 
-            
-                
+        { coldStartMovies.map((movie) => (   
             <div className="rounded-2xl flex flex-col items-center justify-cente bg-[#3c3aa6] hover:scale-105 transition pt-2 pl-2 pr-2">
               <MovieCardRating key={movie.id} movie={movie}  /> 
               <div className="flex items-center justify-center scale-150 pb-2">
                     <Rating  />
                   </div>
-                ))}
               </div>
+              ))}
             </div>
           </div>
           <Link href="/Main" >
