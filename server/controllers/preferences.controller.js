@@ -13,18 +13,6 @@ exports.setPreferences = async (req, res) => {
         console.log(userId);
         const responseFromDb = await preferencesService.savePreferences({userId: userId, preferences: req.body.preferences });
 
-
-        // const responseFromDb = await savePreferences({
-        //     inputGener1: req.body.inputGener1,
-        //     inputGener2: req.body.inputGener2,
-        //     inputGener3: req.body.inputGener3,
-        //     inputActor1: req.body.inputActor1,
-        //     inputActor2: req.body.inputActor2,
-        //     inputLatestYear: req.body.inputLatestYear,
-        //     inputRunTime: req.body.inputRunTime,
-        //     inputOrigin: req.body.inputOrigin,
-        //     inputStudio: req.body.inputStudio
-        // });
         if(responseFromDb){
             res.status(200).json({ preferences: {responseFromDb} });
         }
@@ -39,11 +27,14 @@ exports.setPreferences = async (req, res) => {
 
 exports.fetchPreferences = async (req, res) => {
     try {
-        console.log(req.body.token);
-        const userId = await preferencesService.getUserIdFromToken(req.body.token);
+        console.log(req.body.tokenValue);
+        const userId = await preferencesService.getUserIdFromToken(req.body.tokenValue);
+        console.log("userIDfromToken")
         console.log(userId);
         const responseFromDb = await preferencesService.fetchPreferences(userId);
         if(responseFromDb){
+          console.log("responseFromDb")
+          console.log(responseFromDb)
             res.status(200).json({ preferences: {responseFromDb} });
         }
         else {

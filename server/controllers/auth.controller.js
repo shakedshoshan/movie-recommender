@@ -71,32 +71,24 @@ exports.logIn = async (req, res) => {
 
 exports.getIdFromToken = async (req, res) => {
   try {
-    // Extract the cookie from the request headers using cookie-parser
-
-    console.log("ASdsa")
-    const token = req.cookies.token; // Access the 'token' cookie
-    // console.log(req.cookies)
-    // console.log(token)
+    const token = req.body.tokenValue; 
+    console.log(token)
     if (!token) {
       return res.status(401).json({ error: "Unauthorized" });
     }
-
-    // Verify and decode the JWT token
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
 
     // Access the userId from the decoded token
     const userId = decoded.userId;
-    console.log(`id: ${userId}`)
+    console.log(`id4444: ${userId}`)
 
-    // Now you have the userId, you can perform any actions you need
-    // For example, find the user based on the userId
-
-    if (!user) {
+    if (!userId) {
+      console.log(`id3`)
       return res.status(404).json({ error: "User not found" });
     }
-
+    console.log(`id2: ${userId}`)
     // Do whatever you need with the user object
-    res.status(200).json({ userId: user.id});
+    res.status(200).json(userId);
   } catch (error) {
     // Handle any errors, including token verification errors
     res.status(500).json({ error: "Internal Server Error" });

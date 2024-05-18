@@ -12,25 +12,25 @@ import Link from "next/link";
 import Cookies from 'js-cookie';
 import { getTokenId } from "@/lib/getMovies";
 import { getColdStartMovies } from "@/lib/getColdStartMovies";
+import { cookies } from "next/headers";
+import axios from "axios";
+import { getUserIdFromServer, getUserPreferences } from "@/lib/serverUtils";
 
 
 export async function SignIn3() {
 
 
-  //console.log("Sign-in2");
-   //const token = await Cookies.get("token");
-  // console.log(token);
-  //console.log("Sign-in2");
-
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')
+  let tokenValue = '';
+  if(token){
+    tokenValue = token.value;
+  }
+  const userPreferences = await getUserPreferences(tokenValue);
+  console.log('preferences')
+  console.log(userPreferences)
+  // console.log(userPreferences.responseFromDb.preferences);
   
-  // console.log(typeof(token))
-  // console.log(token);
-  // //const coldStartMovies2 = await getColdStartMovies2(token);
-  // console.log("zxvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
-  // console.log(coldStartMovies2);
-  //console.log(token)
-  //const t = getTokenId();
-
   const coldStartMovies = await getColdStartMovies(0, "Action","Drama","","Sydney Sweeney","Adam Sandler");
 
   return (
@@ -77,3 +77,7 @@ export async function SignIn3() {
 }
 
 export default SignIn3;
+function getTokenIdFromServer(token: import("next/dist/compiled/@edge-runtime/cookies").RequestCookie | undefined) {
+  throw new Error("Function not implemented.");
+}
+

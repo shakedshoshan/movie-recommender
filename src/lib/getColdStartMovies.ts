@@ -5,10 +5,8 @@ import axios from 'axios';
 
 
 export async function getPreferences(){
-  console.log("SignFunc");
   let token =  Cookies.get("token");
   console.log(token);
-  console.log("SignFunc");
   axios.post('http://localhost:4000/fetchPreferences', token)
   .then(response => {
     console.log("get preferences");
@@ -27,10 +25,8 @@ export async function getPreferences(){
 
 export async function getColdStartMovies(year: number, genre1: string, genre2?: string, genre3?: string, person1?: string, person2?: string, company?: string, country?: string ) {
 
-  console.log("SignFunc");
   let token =  Cookies.get("token");
   console.log(token);
-  console.log("SignFunc");
     const url = "https://api.themoviedb.org/3/genre/movie/list?language=en";
   const options: RequestInit = {
     method: "GET",

@@ -105,31 +105,6 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
         LatestYear: inputLatestYear, RunTime: inputRunTime, Origin: inputOrigin, Studio: inputStudio
       };
 
-      // console.log("Cookie")
-      // console.log(Cookies.get())
-      // console.log(preferences);
-      // let token;
-      // const name = "token" + "=";
-      // const decodedCookie = decodeURIComponent(document.cookie);
-      // console.log("decodedCookie")
-      // console.log(decodedCookie)
-      // const cookieArray = decodedCookie.split(';');
-      // console.log("cookieArray:")
-      // console.log(cookieArray)
-      // let cookie;
-      // for (let i = 0; i < cookieArray.length; i++) {
-      //   cookie = cookieArray[i];
-      //   console.log(cookie)
-      //   while (cookie.charAt(0) === ' ') {
-      //     cookie = cookie.substring(1);
-      //   }
-      //   if (cookie.indexOf(name) === 0) {
-      //     token = cookie.substring(name.length, cookie.length); // Update token here
-      //   }
-      // }
-      
-      // console.log("Token:")
-      // console.log(token); // Log the extracted token value
       console.log("Sign-in2");
       console.log(preferences);
       let token = Cookies.get("token");

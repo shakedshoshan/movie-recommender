@@ -17,6 +17,7 @@ import error from "next/error";
 import Cookies from 'js-cookie';
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from 'next/headers'
+import { getUserPreferences } from "@/lib/serverUtils";
 
 
 async function Main() {
@@ -28,14 +29,16 @@ async function Main() {
   const ActorName = await getNameByActorID(525);
   const FavoriteGenreMovie = await getMoviesByGenre(12);
   //const GenreName = await name_to_genreID(12);
-  console.log("At Main Page")
   const wl = true;
 
   const cookieStore = cookies()
   const token = cookieStore.get('token')
-
-  console.log(token);
-
+  let tokenValue = '';
+  if(token){
+    tokenValue = token.value;
+  }
+  const userPreferences = await getUserPreferences(tokenValue);
+  console.log(userPreferences)
   
 
   return (
