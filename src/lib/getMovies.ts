@@ -1,4 +1,6 @@
-import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast, Origins, Origin } from "../../typings";
+"use server"
+import { Value } from "@radix-ui/react-select";
+import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast, Origins, Origin, Genres } from "../../typings";
 import Cookies from 'js-cookie';
 
 
@@ -202,7 +204,7 @@ export async function getRelatedMoviesById(id: number){
 
           export async function getMoviesByActor(ActorId?: number){
             const url = new URL(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_cast=${ActorId}`);
-            
+            const url1 = new URL(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_cast=525`);
             
             const options: RequestInit = {
               method: "GET",
@@ -214,12 +216,22 @@ export async function getRelatedMoviesById(id: number){
             
             const response = await fetch(url.toString(), options);
             const data = (await response.json()) as SearchResults;
+            if(data.results[0] == null){
+              const response1 = await fetch(url1.toString(), options);
+              const data1 = (await response1.json()) as SearchResults;
+              return data1.results;
+            }
             return data.results;
             }
 
 
-            export async function getNameByActorID(ActorId?: number){
-              const url = new URL(`https://api.themoviedb.org/3/person/${ActorId}`);
+            export async function getActorIDByName(ActorName: String){
+              // const parts: string[] = ActorName.split(' ', 2);
+
+              // // If you need both parts and the second part could contain more spaces
+              // const firstPart: string = parts[0];
+              // const secondPart: string = ActorName.slice(ActorName.indexOf(' ') + 1);
+              const url = new URL(`https://api.themoviedb.org/3/search/person?query=${ActorName}&include_adult=false&language=en-US&page=1`);
               
               
               const options: RequestInit = {
@@ -231,12 +243,13 @@ export async function getRelatedMoviesById(id: number){
               };
               
               const response = await fetch(url.toString(), options);
-              const data = (await response.json()) as personProps;
-              return data.name;
+              const data = (await response.json()) as Person;
+              if(data.results[0] == null) return 525
+              return data.results[0].id;
               }
 
 
-              export async function getMoviesByGenre(MovieId?: number){
+              export async function getMoviesByGenre(MovieId: any){
                 const url = new URL(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_count.desc&with_genres=${MovieId}`);
                 
                 
@@ -252,16 +265,6 @@ export async function getRelatedMoviesById(id: number){
                 const data = (await response.json()) as SearchResults;
                 return data.results;
                 }
-
-
-              export function getTokenId(){
-                console.log("getTokenId");
-                const token = Cookies.get("token");
-                console.log(token);
-                  
-                return token;
-                }
-
 
                 export async function getOrigins(){
                   const url = new URL(`https://api.themoviedb.org/3/configuration/countries?language=en-US`);
@@ -281,7 +284,39 @@ export async function getRelatedMoviesById(id: number){
                   return data;
                   }
   
+                  export async function getGenreIdByName(genreName: string) {
+                    const url = "https://api.themoviedb.org/3/genre/movie/list?language=en";
+                    const options: RequestInit = {
+                      method: "GET",
+                      headers: {
+                        accept: "application/json",
+                        Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
+                      },
+                      next: {
+                        revalidate: 60 * 60 * 24, // 24 hours
+                      },
+                    };
 
+                    const response = await fetch(url.toString(), options);
+                    const data = (await response.json()) as Genres;
+                    
+                  
+                    const genres = data.genres;
+                    for (let i = 0; i < genres.length; i++) {
+                      //const genre = genres[i];
+                      if(genres[i].name === genreName) {
+                        return genres[i].id;
+                      }
+                    }
+                    return null;
+                  }
+
+                  export async function getexample() {
+                    const result = await getActorIDByName("Jeremy Piven");
+                    console.log(result)
+                    return result
+                  }
+                  
 
 
 

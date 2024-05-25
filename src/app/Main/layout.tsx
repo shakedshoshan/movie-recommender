@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
+import Template from "../Templaite";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +21,7 @@ export default function DashboardLayout({
     <section>
       
        
-        <Header  />
+        <Header />
         {children}
         
         

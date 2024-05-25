@@ -16,6 +16,7 @@ export async function getUserPreferences(tokenValue: string) {
         }
     
         const data = await response.json();
+        //console.log(data);
         return data.preferences.responseFromDb.preferences;
       } catch (error) {
         console.error('Error fetching user ID:', error);

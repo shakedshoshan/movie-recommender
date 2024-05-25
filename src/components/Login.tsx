@@ -89,33 +89,17 @@ const Login = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-4 scale-105 w-60">
                 <div className="space-y-2 ">
-              <Label htmlFor="name" className="text-black">User Name</Label>
+              <Label htmlFor="name" className="text-zinc-800">User Name</Label>
               <Input ref={inputRefUserName} id="firstName" placeholder="Enter username" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="spouse-name" className="text-black">Password</Label>
+              <Label htmlFor="spouse-name" className="text-zinc-800">Password</Label>
               <Input ref={inputRefPassword} id="spouse-name" placeholder="Enter password" />
             </div>
-                {/* <InputField
-                        type="text"
-                        placeholder="enter"
-                        name="email" label={"User Name:"} register={undefined} error={undefined}                        />
-
-                <InputField
-                        type="password"
-                        placeholder="Enter password"
-                        name="password" label={"Password:"} register={undefined} error={undefined}                        /> */}
                 </form>
                 <Link href="/Main">
-                    {/* <button className="border rounded-lg p-3 m-2 bg-blue-500 bg-opacity-90 text-white hover:bg-blue-700 w-64 cursor-pointer">
-                            <span>ENTER</span>
-                    </button> */}
                     <button className="border rounded-lg p-3 m-2 bg-blue-500 bg-opacity-90 text-white hover:bg-blue-700 w-64 cursor-pointer" onClick={apiCall}><span>ENTER</span></button>
                     </Link>
-                
-
-
-                
                 <div className="flex flex-row items-center space-x-1">
                     <small>Still do not have user?</small>
                     <Link href="/SignIn"><small className="font-semibold">Sign-Up</small></Link>

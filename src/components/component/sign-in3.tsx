@@ -10,7 +10,6 @@ import Rating from "../Rating";
 import Link from "next/link";
 // import { getColdStartMovies } from "@/lib/getColdStartMovies";
 import Cookies from 'js-cookie';
-import { getTokenId } from "@/lib/getMovies";
 import { getColdStartMovies } from "@/lib/getColdStartMovies";
 import { cookies } from "next/headers";
 import axios from "axios";
@@ -27,11 +26,10 @@ export async function SignIn3() {
     tokenValue = token.value;
   }
   const userPreferences = await getUserPreferences(tokenValue);
-  console.log('preferences')
   console.log(userPreferences)
-  // console.log(userPreferences.responseFromDb.preferences);
   
-  const coldStartMovies = await getColdStartMovies(0, "Action","Drama","","Sydney Sweeney","Adam Sandler");
+  
+  const coldStartMovies = await getColdStartMovies(userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1,userPreferences.Actor2,userPreferences.Studio, userPreferences.Origin);
 
   return (
     <>

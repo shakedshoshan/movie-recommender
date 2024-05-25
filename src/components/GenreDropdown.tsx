@@ -30,8 +30,8 @@ async function GenreDropdown() {
   
 
   return (
-    <DropdownMenu >
-      <DropdownMenuTrigger className="text-[#f0f0f2] items-center flex justify-center  hover:bg-black hover:bg-opacity-70 rounded py-2 px-2">Genre<ChevronDown /></DropdownMenuTrigger>
+    <DropdownMenu  >
+      <DropdownMenuTrigger className="text-[#f0f0f2] items-center flex justify-center  hover:bg-black  hover:bg-opacity-70  rounded py-2 px-2">Genre<ChevronDown /></DropdownMenuTrigger>
       <DropdownMenuContent className="bg-[#2c315b] border-[#181b37] text-[#d3d3e0]">
     <DropdownMenuLabel>Select genre</DropdownMenuLabel>
     <DropdownMenuSeparator />

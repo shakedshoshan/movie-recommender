@@ -16,12 +16,7 @@ import WishListButton from "./WishListButton";
 async function MovieCard({ movie }: { movie: Movie }) {
 
   const year = movie.release_date.match(/^\d{4}/);
-  //const [open,setOpen] = useState(false);
-  
-//
-
-
-
+ 
 
   return (
     
@@ -34,7 +29,7 @@ async function MovieCard({ movie }: { movie: Movie }) {
     
      <Image
       className="w-fit lg:min-w-[400px] h-fit object-cover object-center shadow-md shadow-gray-900 drop-shadow-xl rounded-sm"
-      src={getImagePath(movie.backdrop_path || movie.poster_path)}
+      src={getImagePath(movie.backdrop_path)}
       alt={movie.title}
       width={1920}
       height={1180}
