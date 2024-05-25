@@ -62,7 +62,7 @@ async function Main() {
               <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie}  /> </div>
               </a>
               <div className="flex items-center space-x-12 justify-center pb-2">
-                    <div className="pl-2"><Rating  /></div>
+                    <div className="pl-2"><Rating id={movie.id}  /></div>
                     <div className="pr-2"><WishListButton wl={wl}/> </div>
                     
               </div>

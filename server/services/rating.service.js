@@ -1,0 +1,44 @@
+const ratingModel = require("../models/rating");
+const jwt = require('jsonwebtoken');
+
+exports.setRating = async (rating) => {
+
+
+    try {
+        console.log("rating")
+        console.log(rating)
+        console.log("rating")
+        const movieIdToPush = rating.movieId.id;
+        const ratingToPust = rating.rating;
+        const user = await ratingModel.findOne({ id: rating.userId });
+        if (user) {
+            // Check if the movieId already exists in the rating array
+            const existingRatingIndex = user.rating.findIndex(
+                (r) => r.movieId === rating.movieId.id
+            );
+            // If the movieId exists, update the rating
+            if (existingRatingIndex !== -1) {
+                user.rating[existingRatingIndex].rating = rating.rating;
+            } else {
+
+                // If the movieId doesn't exist, add it to the rating array
+                user.rating.push({movieId: movieIdToPush, rating: ratingToPust });
+            }
+            // Save the updated user document
+            await user.save();
+        }
+        else {
+        // If the user doesn't exist, create a new document
+        const newRating = new ratingModel({
+            id: rating.userId,
+            rating: [{movieId: movieIdToPush, rating: ratingToPust }],
+        });
+        await newRating.save();
+        }
+
+    console.log('Rating updated/created successfully');
+  } catch (err) {
+    console.error('Error updating/creating rating:', err);
+  }
+
+};

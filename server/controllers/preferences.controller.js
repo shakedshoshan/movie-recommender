@@ -1,4 +1,5 @@
 const preferencesService = require("../services/preferences.service");
+const authService = require("../services/auth.service");
 const preferences = require("../models/preferences");
 const jwt = require('jsonwebtoken');
 
@@ -9,7 +10,7 @@ exports.setPreferences = async (req, res) => {
         console.log("here");
         console.log("token");
         console.log(req.body.token);
-        const userId = await preferencesService.getUserIdFromToken(req.body.token);
+        const userId = await authService.getUserIdFromToken(req.body.token);
         console.log(userId);
         const responseFromDb = await preferencesService.savePreferences({userId: userId, preferences: req.body.preferences });
 
@@ -28,7 +29,7 @@ exports.setPreferences = async (req, res) => {
 exports.fetchPreferences = async (req, res) => {
     try {
         console.log(req.body.tokenValue);
-        const userId = await preferencesService.getUserIdFromToken(req.body.tokenValue);
+        const userId = await authService.getUserIdFromToken(req.body.tokenValue);
         console.log("userIDfromToken")
         console.log(userId);
         const responseFromDb = await preferencesService.fetchPreferences(userId);
