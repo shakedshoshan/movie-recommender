@@ -33,7 +33,7 @@ export default function MoviePage({ movie }: { movie: Movie }){
                     <p className="max-w-xl text-xl pb-10 pt-6">{movie.overview}</p>
 
                     <div className="flex items-center z-30 space-x-20 left-24 absolute scale-110">
-                    <Rating />
+                    <Rating id={movie.id} />
                     <WishListButton  wl={false}/>
                 </div>
                     

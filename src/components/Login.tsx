@@ -41,28 +41,18 @@ const Login = () => {
 
     
     if (inputUserName && inputPassword) {
-      // const router = useRouter();
-      console.log(inputUserName)
-      console.log(inputPassword)
-      console.log("toke23:")
       const cradentials = { userName: inputUserName, password: inputPassword };
       console.log(cradentials)
       axios.post('http://localhost:4000/logIn', cradentials)
         .then(response => {
-          console.log("try to save token1");
-          console.log(response.data)
-          console.log("resposnse token")
-
-        //   Cookies.set('token', token, { expires: 1,});
-        const token = response.data.token;
-        const expires = new Date(Date.now() + 3600000); // 1 hour from now
-        document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/`;
-        console.log(response.data.token);
-        document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
-        console.log("resposnse token")
-        console.log(token)
-
           if (response.status === 200) {
+            const token = response.data.token;
+            const expires = new Date(Date.now() + 3600000); // 1 hour from now
+            document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/`;
+            console.log(response.data.token);
+            document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
+            console.log("resposnse token")
+            console.log(token)
             console.log(response);
             setSuccess(true); // Set success to true if status is 200
           } else {

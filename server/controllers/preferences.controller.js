@@ -5,15 +5,9 @@ const jwt = require('jsonwebtoken');
 
 exports.setPreferences = async (req, res) => {
     try {
-        console.log(req.body.preferences);
-        console.log(req.body.token);
-        console.log("here");
-        console.log("token");
-        console.log(req.body.token);
         const userId = await authService.getUserIdFromToken(req.body.token);
         console.log(userId);
         const responseFromDb = await preferencesService.savePreferences({userId: userId, preferences: req.body.preferences });
-
         if(responseFromDb){
             res.status(200).json({ preferences: {responseFromDb} });
         }

@@ -14,6 +14,7 @@ router.post("/setPreferences", preferencesController.setPreferences);
 router.post("/fetchPreferences", preferencesController.fetchPreferences);
 
 router.post("/setRatings", ratingController.setRatings);
+router.post("/getRatings", ratingController.getRatings);
 
 
 

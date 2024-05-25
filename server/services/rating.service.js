@@ -2,8 +2,6 @@ const ratingModel = require("../models/rating");
 const jwt = require('jsonwebtoken');
 
 exports.setRating = async (rating) => {
-
-
     try {
         console.log("rating")
         console.log(rating)
@@ -37,6 +35,34 @@ exports.setRating = async (rating) => {
         }
 
     console.log('Rating updated/created successfully');
+  } catch (err) {
+    console.error('Error updating/creating rating:', err);
+  }
+
+};
+
+
+exports.getRating = async (ratingInfo) => {
+    try {
+        const user = await ratingModel.findOne({ id: ratingInfo.userId });
+        if (user) {
+            // Check if the movieId already exists in the rating array
+            const existingRatingIndex = user.rating.findIndex(
+                (r) => r.movieId === ratingInfo.movieId.id
+            );
+            // If the movieId exists, update the rating
+            if (existingRatingIndex !== -1) {
+                 return user.rating[existingRatingIndex].rating
+            } else {
+
+                // If the movieId doesn't exist
+                return null
+            }
+
+        }
+        else {
+            return null
+        }
   } catch (err) {
     console.error('Error updating/creating rating:', err);
   }

@@ -59,7 +59,7 @@ export async function SignIn3() {
             <div className="rounded-2xl flex flex-col items-center justify-cente bg-[#3c3aa6] hover:scale-105 transition pt-2 pl-2 pr-2">
               <MovieCardRating key={movie.id} movie={movie}  /> 
               <div className="flex items-center justify-center scale-150 pb-2">
-                    <Rating  />
+                    <Rating id={movie.id}  />
                   </div>
               </div>
               ))}

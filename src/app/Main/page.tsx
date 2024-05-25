@@ -74,7 +74,7 @@ async function Main() {
     <div className={cn(
           "flex space-x-20 overflow-scroll scrollbar-hide px-10 items-center"
         )}>
-        { coldStartMovies.slice(0, 35).map((movie) => ( 
+        { coldStartMovies.slice(0, 30).map((movie) => ( 
             
                 
             <div className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">

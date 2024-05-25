@@ -6,34 +6,44 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useEffect } from 'react';
 
 export default function BasicRating(id: any) {
+  const token = Cookies.get("token");
+  let usersRating = null;
+
   const [value, setValue] = React.useState<number | null>(null);
+  
+  useEffect(() => {
+    const rating = { token: token, movieId: id };
+  axios.post('http://localhost:4000/getRatings', rating, {
+    withCredentials: true 
+  })
+    .then(response => {
+      if (response.status === 200) {
+        setValue(response.data.rating.responseFromDb)
+        usersRating = response.data.rating.responseFromDb;
+      } else {
+        console.log("fail to set rating")
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }, []);
+
+  
   const handleRatingClick = async (newValue: number | null) => {
     console.log("BASICRATING");
     console.log("newValue");
     setValue(newValue);
-    let token = Cookies.get("token");
-
-    
     const rating = { token: token, movieId: id, rating: newValue };
       axios.post('http://localhost:4000/setRatings', rating, {
         withCredentials: true 
       })
         .then(response => {
-          console.log("login");
-          console.log(response);
-          // router.push('/signUp/preferences');
           if (response.status === 200) {
-            console.log(response.data)
-            const token = response.data.token;
-            const expires = new Date(Date.now() + 3600000); // 1 hour from now
-            document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/`;
-            console.log(response.data.token);
-            document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
-            console.log("resposnse token")
-            console.log(token)
-            // Cookies.set('token', token, { expires: 1, secure: true });
+            console.log("set ratings")
           } else {
             console.log("fail to set rating")
           }
