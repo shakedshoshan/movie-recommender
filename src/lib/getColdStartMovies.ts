@@ -1,3 +1,4 @@
+"use server"
 import { Genres, Movie } from "../../typings";
 import { getPersonIdByName } from "./getMovies";
 import Cookies from 'js-cookie';
@@ -5,13 +6,13 @@ import axios from 'axios';
 
 
 export async function getPreferences(){
-  let token =  Cookies.get("token");
+  let token = Cookies.get("token");
   console.log(token);
   axios.post('http://localhost:4000/fetchPreferences', token)
   .then(response => {
     console.log("get preferences");
     if (response.status === 200) {
-      console.log(response.data.preferences)
+      //console.log(response.data.preferences)
       return response.data.preferences;
     } else {
       setError("Bad request. Please check your credentials.");
@@ -41,12 +42,13 @@ export async function getColdStartMovies(year: number, genre1: string, genre2?: 
 
   const response = await fetch(url.toString(), options);
   const data = (await response.json()) as Genres;
-  genre1 = name_to_genreID(genre1, data);
-  genre2 = name_to_genreID(genre2, data);
-  genre3 = name_to_genreID(genre3, data);
+  genre1 = await name_to_genreID(genre1, data);
+  genre2 = await  name_to_genreID(genre2, data);
+  genre3 = await name_to_genreID(genre3, data);
 
   const personName1 = await getPersonIdByName(person1);
   const personName2 = await getPersonIdByName(person2);
+  //console.log(personName2)
   
 
   const url1 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}-01-01&sort_by=vote_count.desc&with_companies=${company}&with_genres=${genre1}%2C%20${genre2}%2C%20${genre3}&with_origin_country=${country}`;
@@ -71,26 +73,43 @@ export async function getColdStartMovies(year: number, genre1: string, genre2?: 
   const url15 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}&sort_by=vote_count.desc&with_cast=${personName1}`;
   const url16 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}&sort_by=vote_count.desc&with_cast=${personName2}`;
 
-    const recommended_movie1 = await fetchData(url1,8);
-    const recommended_movie2 = await fetchData(url2,8);
-    const recommended_movie3 = await fetchData(url3,8);
-    const recommended_movie4 = await fetchData(url4,11);
-    const recommended_movie5 = await fetchData(url5,11);
-    const recommended_movie6 = await fetchData(url6,11);
-    const recommended_movie7 = await fetchData(url7,15);
-    const recommended_movie8 = await fetchData(url8,15);
-    const recommended_movie9 = await fetchData(url9,15);
-    const recommended_movie10 = await fetchData(url10,15);
-    const recommended_movie11 = await fetchData(url11,15);
-    const recommended_movie12 = await fetchData(url12,20);
-    const recommended_movie13 = await fetchData(url13,20);
-    const recommended_movie14 = await fetchData(url14,10);
+  const url17 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}-01-01&sort_by=vote_count.desc&with_genres=${genre1}%2C%20${genre2}%2C%20${genre3}`;
+  const url18 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}-01-01&sort_by=vote_count.desc&with_genres=${genre1}%2C%20${genre2}`;
+  const url19 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}-01-01&sort_by=vote_count.desc&with_genres=${genre1}`;
+
+  const url20 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}&with_genres=${genre1}%2C%20${genre2}%2C%20${genre3}&sort_by=vote_count.desc&with_cast=${personName1}%20OR%20${personName2}`;
+  const url21 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}&with_genres=${genre1}%2C%20${genre2}&sort_by=vote_count.desc&with_cast=${personName1}%20OR%20${personName2}`;
+  const url22 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}&with_genres=${genre1}&sort_by=vote_count.desc&with_cast=${personName1}%20OR%20${personName2}`;
+
+    const recommended_movie1 = await fetchData(url1,6);
+    const recommended_movie2 = await fetchData(url2,6);
+    const recommended_movie3 = await fetchData(url3,6);
+    const recommended_movie4 = await fetchData(url4,9);
+    const recommended_movie5 = await fetchData(url5,9);
+    const recommended_movie6 = await fetchData(url6,9);
+    const recommended_movie7 = await fetchData(url7,12);
+    const recommended_movie8 = await fetchData(url8,12);
+    const recommended_movie9 = await fetchData(url9,12);
+    const recommended_movie10 = await fetchData(url10,12);
+    const recommended_movie11 = await fetchData(url11,12);
+    const recommended_movie12 = await fetchData(url12,17);
+    const recommended_movie13 = await fetchData(url13,17);
+    const recommended_movie14 = await fetchData(url14,17);
     const recommended_movie15 = await fetchData(url15,3);
     const recommended_movie16 = await fetchData(url16,3);
+    const recommended_movie17 = await fetchData(url17,6);
+    const recommended_movie18 = await fetchData(url18,5);
+    const recommended_movie19 = await fetchData(url19,5);
+    const recommended_movie20 = await fetchData(url20,5);
+    const recommended_movie21 = await fetchData(url21,5);
+    const recommended_movie22 = await fetchData(url22,5);
     
 
     // Concatenate all recommended movie arrays
     const recommended_movie = [
+        ...recommended_movie20,
+        ...recommended_movie21,
+        ...recommended_movie22,
         ...recommended_movie1,
         ...recommended_movie2,
         ...recommended_movie3,
@@ -100,6 +119,9 @@ export async function getColdStartMovies(year: number, genre1: string, genre2?: 
         ...recommended_movie7,
         ...recommended_movie8,
         ...recommended_movie9,
+        ...recommended_movie17,
+        ...recommended_movie18,
+        ...recommended_movie19,
         ...recommended_movie14,
         ...recommended_movie15,
         ...recommended_movie16,
@@ -122,7 +144,7 @@ export async function getColdStartMovies(year: number, genre1: string, genre2?: 
   }
 
 
-  function name_to_genreID(name: any, response: any) {
+  export async function name_to_genreID(name: any, response: any) {
     //const response_json = JSON.parse(response);
     const genres = response.genres;
     for (let i = 0; i < genres.length; i++) {

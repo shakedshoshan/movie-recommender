@@ -23,7 +23,7 @@ async function MovieCardRaring({ movie }: { movie: Movie }) {
     <div className="relative cursor-pointer ">
     {/*<div className="absolute inset-0 bg-gradient-to-b from-gray-200/0 via-gray-900/10 to-[#1A1C29]/80 z-10" >*/}
     
-      <p className="absolute z-20 bottom-1 right-0 text-white text-xl font-semibold scale-75 bg-slate-700 rounded-sm opacity-85">{movie.vote_average}/10   ({movie.vote_count})</p>
+      <p className="absolute z-20 bottom-1 right-0 text-white text-xl pl-2 pr-2 p-1 font-semibold scale-75 bg-slate-700 rounded-sm opacity-85">{movie.vote_average}/10   ({movie.vote_count})</p>
     
     
      <Image

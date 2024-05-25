@@ -20,34 +20,16 @@ import Link from "next/link"
 import axios from 'axios';
 import React, { useState, useRef, SetStateAction, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import {getOrigins, getTokenId } from "@/lib/getMovies"
-import { Origin, Origins } from "../../../typings"
+import { getexample } from "@/lib/getMovies"
 
-export function SignIn2(originList: Origin) {
+type Props = { linkTo: any; year?: number, genre1?: string, genre2?: string, genre3?: string, person1?: string, person2?: string, company?: string, country?: string, runTime?: any};
 
+export function SignIn2({linkTo, year ,genre1, genre2, genre3, person1, person2, company, country, runTime}: Props ) {
 
-//console.log(originList.english_name[1])
-
-const selectOriginRef = useRef<HTMLSelectElement>(null);
+  
 
   useEffect(() => {
-    const selectOrigin = selectOriginRef.current;
-    if (selectOrigin) {
-      // Your logic using the selectOrigin element
-      for (let i = 0; i < 10; i++) {
-        const optionElement = document.createElement('option');
-        //console.log(originList[i])
-        //optionElement.text = originList[i]?.english_name;
-        selectOrigin.appendChild(optionElement);
-      }
-    }
-  }, []);
-
-//console.log(selectOriginRef)
-
-
-  useEffect(() => {
-    console.log(document.getElementById('printButton'));
+    //console.log(document.getElementById('printButton'));
     const input = document.getElementById('firstName');
     
 }, []); 
@@ -73,6 +55,8 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
   const [selectedeGenre1, setSelectedGenre1] = useState('');
   const [selectedeGenre2, setSelectedGenre2] = useState('');
   const [selectedeGenre3, setSelectedGenre3] = useState('');
+  const [selectOrigin, setselectOriginRef] = useState('');
+  const [selectCompany, setselectCompanyRef] = useState('');
   
   const handleChangeGenre1 = (event: { target: { value: SetStateAction<string> } }) => {
     setSelectedGenre1(event.target.value);
@@ -85,6 +69,14 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
   const handleChangeGenre3 = (event: { target: { value: SetStateAction<string> } }) => {
     setSelectedGenre3(event.target.value);
   }
+
+  const handleChangeOrigin = (event: { target: { value: SetStateAction<string> } }) => {
+    setselectOriginRef(event.target.value);
+  }
+
+  const handleChangecompany = (event: { target: { value: SetStateAction<string> } }) => {
+    setselectCompanyRef(event.target.value);
+  }
   
   const apiCall = () => {
     const inputGener1 = selectedeGenre1;
@@ -95,8 +87,8 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
     const inputActor2 = inputRefActor2.current?.value;
     const inputLatestYear = inputRefLatestYear.current?.value;
     const inputRunTime = inputRefRunTime.current?.value;
-    const inputOrigin = inputRefOrigin.current?.value;
-    const inputStudio = inputRefStudio.current?.value;
+    const inputOrigin = selectOrigin//.current?.value;
+    const inputStudio = selectCompany//.current?.value;
 
 
     if (inputGener1) {
@@ -104,9 +96,9 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
         Genre1: inputGener1, Genre2: inputGener2, Genre3: inputGener3, Actor1: inputActor1, Actor2: inputActor2,
         LatestYear: inputLatestYear, RunTime: inputRunTime, Origin: inputOrigin, Studio: inputStudio
       };
-
+      //console.log(inputActor1)
       console.log("Sign-in2");
-      console.log(preferences);
+      //console.log(preferences);
       let token = Cookies.get("token");
       console.log(token);
       console.log("Sign-in2");
@@ -136,33 +128,20 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
 
   return (
     <>
-      <div className="px-4 py-16 ">
+      <div className="px-4 py-2 ">
         <div className="mx-auto max-w-3xl space-y-4">
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 rounded-full bg-gray-500" />
-                <div className="w-3 h-3 rounded-full bg-gray-300" />
-                <div className="w-3 h-3 rounded-full bg-gray-500" />
-              </div>
-              <p className="text-sm text-gray-100">Stage 2 of 3</p>
-            </div>
-            <h1 className="text-4xl font-bold text-white">Sign In to CineMate</h1>
-            <p className="text-gray-300 ">
-              Enter the personal information and movie's preferences you have
-            </p>
-          </div>
+          
           <div className="py-10 ">
             <h1 className="text-2xl text-white font-semibold">Personal Preferences</h1>
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="favorite-genres" className="text-white" >Favorite Genres</Label>
-                <div className=" grid grid-rows-1 grid-cols-3 gap-9 pb-6 ">
+                <div className=" grid grid-rows-1 grid-cols-3 gap-12 pb-6 ">
                   <div className="">
-                    <Label htmlFor="spouse-gender" className="text-white ">Genre 1</Label>
+                    <Label htmlFor="spouse-gender" className="text-white ">Genre 1 : {genre1}</Label>
                     <div>
-              <select className = "rounded-lg text-xl py-2 px-10 " value={selectedeGenre1} onChange={handleChangeGenre1}>
-              <option value="">Select genre1</option>
+              <select className = "rounded-lg text-sm py-2 px-14 " value={selectedeGenre1} onChange={handleChangeGenre1}>
+              <option className="text-slate-600" value="">Select genre1</option>
                <option value="Action">Action</option>
                 <option value="Adventure">Adventure</option>
                 <option value="Animation">Animation</option>
@@ -185,9 +164,9 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
              </div>
                   </div>
                   <div>
-            <Label htmlFor="spouse-gender" className="text-white">Genre 2</Label>
-              <select className = "rounded-lg text-xl py-2 px-10 "  value={selectedeGenre2} onChange={handleChangeGenre2}>
-              <option value="">Select genre1</option>
+            <Label htmlFor="spouse-gender" className="text-white">Genre 2:    {genre2}</Label>
+              <select className = "rounded-lg text-sm py-2 px-14 "  value={selectedeGenre2} onChange={handleChangeGenre2}>
+              <option className="text-slate-600" value="">Select genre2</option>
                <option value="Action">Action</option>
                 <option value="Adventure">Adventure</option>
                 <option value="Animation">Animation</option>
@@ -209,9 +188,9 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
               </select>
                   </div>
                   <div>
-                    <Label htmlFor="spouse-gender" className="text-white">Genre 3</Label>
-                    <select className = "rounded-lg text-xl py-2 px-10 "  value={selectedeGenre3} onChange={handleChangeGenre3}>
-                    <option value="">Select genre1</option>
+                    <Label htmlFor="spouse-gender" className="text-white">Genre 3: : {genre3}</Label>
+                    <select className = "rounded-lg text-sm py-2 px-14 "  value={selectedeGenre3} onChange={handleChangeGenre3}>
+                    <option className="text-slate-600" value="">Select genre3</option>
                     <option value="Action">Action</option>
                       <option value="Adventure">Adventure</option>
                       <option value="Animation">Animation</option>
@@ -238,28 +217,66 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
 
             <div className=" grid grid-rows-1 grid-cols-2 gap-5">
               <div>
-                <Label htmlFor="actor 1" className="text-white">Actor 1</Label>
+                <Label htmlFor="actor 1" className="text-white">Actor 1: {person1}</Label>
                 <Input ref={inputRefActor1} id="actor1" placeholder="Example: Jeremy Piven" />
+                
               </div>
               <div>
-                <Label htmlFor="actor 2" className="text-white">Actor 2</Label>
+                <Label htmlFor="actor 2" className="text-white">Actor 2: {person2}</Label>
                 <Input ref={inputRefActor2} id="actor2" placeholder="Example: Jenna Ortega" />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="latest-year" className="text-white">Latest Year</Label>
+              <Label htmlFor="latest-year" className="text-white">Latest Year: {year}</Label>
               <Input type="number" ref={inputRefLatestYear} id="latest-year" placeholder="Enter latest year" />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="origin" className="text-white">Origin</Label>
-              <Input ref={inputRefOrigin} id="origin" placeholder="Enter origin" />
-              <select id="mySelect" ref={selectOriginRef}>
-                {/* Other options */}
+            <div className="space-y-2 flex flex-col pt-5">
+              <Label htmlFor="origin" className="text-white">Origin: {country}</Label>
+              {/* <Input ref={inputRefOrigin} id="origin" placeholder="Enter origin" /> */}
+              <select className = "rounded-lg text-sm py-2 px-10"  value={selectOrigin} onChange={handleChangeOrigin}>
+                      <option className="text-slate-600" value="US">Select Origin</option>
+                      <option value="US">United States</option>
+                      <option value="CA">Canada</option>
+                      <option value="DE">Germany</option>
+                      <option value="ES">Spain</option>
+                      <option value="FR">France</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="IL">Israel</option>
+                      <option value="IN">India</option>
+                      <option value="IT">Italy</option>
+                      <option value="JP">Japan</option>
+                      <option value="NP">North Korea</option>
+                      <option value="SE">Sweden</option>
+                      <option value="TR">Turkey</option>
               </select>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="favorite-company" className="text-white">Favorite Film Studio</Label>
-              <Input ref={inputRefStudio} id="favorite-company" placeholder="Enter favorite company" />
+            <div className="space-y-2 flex flex-col pt-5">
+              <Label htmlFor="favorite-company" className="text-white">Favorite Film Studio:  {company}</Label>
+              {/* <Input ref={inputRefStudio} id="favorite-company" placeholder="Enter favorite company" /> */}
+              <select className = "rounded-lg text-sm py-2 px-10 pt-2"  value={selectCompany} onChange={handleChangecompany}>
+                      <option className="text-slate-600" value="">Select Company</option>
+                      <option value="97">Castle Rock Entertainment</option>
+                      <option value="4">Paramount Pictures</option>
+                      <option value="17">Warner Bros.</option>
+                      <option value="33">Universal Pictures</option>
+                      <option value="12">New Line Cinema</option>
+                      <option value="14">Miramax</option>
+                      <option value="7508">Produzioni Europee Associate (PEA)</option>
+                      <option value="1">Lucasfilm</option>
+                      <option value="882">Toho</option>
+                      <option value="7">Dreamworks Pictures</option>
+                      <option value="10342">Studio Ghibli</option>
+                      <option value="7036">CJ Entertainment</option>
+                      <option value="2">Walt Disney Pictures</option>
+                      <option value="1382">PolyGram Filmed Entertainment</option>
+                      <option value="9195">Touchstone Pictures</option>
+                      <option value="192">Shochiku</option>
+                      <option value="3">Pixar Animation Studios</option>
+                      <option value="420">Marvel Studios</option>
+                      <option value="25">Twentieth Century Fox</option>
+                      <option value="5">Columbia Pictures</option>
+                      <option value="838">Paramount Vantage</option>
+              </select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="max-runtime" className="text-white">Maximum Run Time</Label>
@@ -267,9 +284,9 @@ const selectOriginRef = useRef<HTMLSelectElement>(null);
             </div>
           </div>
         </div>
-        <Link href="\SignIn\preferences\moviesRating">
+        <a href={linkTo}>
         <button className="w-full p-3 bg-slate-700  text-2xl rounded-xl text-white hover:bg-gray-800 transition" onClick={apiCall}>Submit</button>
-        </Link>
+        </a>
         {/* <button className="w-full p-6 bg-slate-700  text-2xl" onClick={apiCall}>Submit</button> */}
 
 

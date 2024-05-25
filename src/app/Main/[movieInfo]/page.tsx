@@ -3,7 +3,7 @@ import MoviesCarousel from "@/components/MoviesCarousel";
 import { getMovieByID, getMovieCast, getMovieImages, getRelatedMoviesById, getTrailerById } from "@/lib/getMovies";
 import Image from "next/image";
 import getImagePath from "@/lib/getImagePath";
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react";
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode, Suspense } from "react";
 import MovieTitle from "@/components/MovieTitle";
 import Rating from "@/components/Rating";
 import VideoPlayer from "@/components/VideoPlayer";
@@ -68,7 +68,9 @@ async function MoviePage({
       
 
       <div className="">
+      <Suspense fallback={<div>Loading...</div>}>
         <MovieTitle movie = {data}/>
+     </Suspense>
       </div>
 
       
@@ -98,7 +100,7 @@ async function MoviePage({
         {data.genres.map((genre: {
           [x: string]: ReactNode; id: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; 
 }) => (
-          <p className="py-2 text-xl">{genre.name}  |  </p>
+          <p className="py-2 text-xl">{genre.name}   |    </p>
         ))}
         </div>
 
@@ -129,7 +131,7 @@ async function MoviePage({
             src={getImagePath(p.profile_path, true)}
             alt=""
             width={250}
-            height={400}
+            height={300}
               />
 
             <div className="flex flex-col items-center justify-center">
