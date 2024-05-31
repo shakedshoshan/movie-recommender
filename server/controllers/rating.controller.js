@@ -1,4 +1,3 @@
-const preferencesService = require("../services/preferences.service");
 const ratingService = require("../services/rating.service");
 const authService = require("../services/auth.service");
 

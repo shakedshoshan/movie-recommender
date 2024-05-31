@@ -38,7 +38,7 @@ function MoviesCarousel({ title, movies, isVertical, name }: Props) {
                   <h3 className="font-bold">Rating: {movie.vote_average} ({movie.vote_count})</h3>
                   <div className="flex flex-row items-center space-x-96">
                   <Rating id={movie.id} />
-                  <WishListButton  wl={wl}/>
+                  <WishListButton  id={movie.id}/>
                 </div>
                 </div>
               </div>
@@ -49,7 +49,7 @@ function MoviesCarousel({ title, movies, isVertical, name }: Props) {
                 <MovieCard key={movie.id} movie={movie} /> 
                 <div className="flex items-center space-x-20 pt-4">
                       <Rating id={movie.id} />
-                      <WishListButton  wl={wl}/>
+                      <WishListButton  id={movie.id}/>
                     </div>
                 </div>
            

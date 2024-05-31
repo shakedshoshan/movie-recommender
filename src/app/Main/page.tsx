@@ -83,7 +83,7 @@ async function Main() {
               </a>
               <div className="flex items-center space-x-12 justify-center pb-2">
                     <div className="pl-2"><Rating id={movie.id}  /></div>
-                    <div className="pr-2"><WishListButton wl={wl}/> </div>
+                    <div className="pr-2"><WishListButton id={movie.id}/> </div>
                     
               </div>
               </div>

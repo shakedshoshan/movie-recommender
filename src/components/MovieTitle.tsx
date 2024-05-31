@@ -34,7 +34,7 @@ export default function MoviePage({ movie }: { movie: Movie }){
 
                     <div className="flex items-center z-30 space-x-20 left-24 absolute scale-110">
                     <Rating id={movie.id} />
-                    <WishListButton  wl={false}/>
+                    <WishListButton  id={movie.id}/>
                 </div>
                     
                  </div>
