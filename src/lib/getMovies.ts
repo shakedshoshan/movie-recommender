@@ -1,4 +1,3 @@
-"use server"
 import { Value } from "@radix-ui/react-select";
 import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast, Origins, Origin, Genres } from "../../typings";
 import Cookies from 'js-cookie';
@@ -225,7 +224,7 @@ export async function getRelatedMoviesById(id: number){
             }
 
 
-            export async function getActorIDByName(ActorName: String){
+            export async function getActorIDByName(ActorName?: String){
               // const parts: string[] = ActorName.split(' ', 2);
 
               // // If you need both parts and the second part could contain more spaces

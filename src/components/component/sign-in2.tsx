@@ -15,18 +15,24 @@
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
+import { SelectValue, SelectTrigger, SelectItem, SelectContent } from "@/components/ui/select"
 import Link from "next/link"
 import axios from 'axios';
-import React, { useState, useRef, SetStateAction, useEffect } from 'react';
+import React, { useState, useRef, SetStateAction, useEffect, ReactNode } from 'react';
 import Cookies from 'js-cookie';
 import { getexample } from "@/lib/getMovies"
+import { ActorsList, ActorsNames } from "../../../typings"
+import Select, { Options, OptionsOrGroups } from 'react-select'
 
-type Props = { linkTo: any; year?: number, genre1?: string, genre2?: string, genre3?: string, person1?: string, person2?: string, company?: string, country?: string, runTime?: any};
+type Props = { linkTo: any; actorsList: ActorsList; year?: number, genre1?: string, genre2?: string, genre3?: string, person1?: string, person2?: string, company?: string, country?: string, runTime?: any};
 
-export function SignIn2({linkTo, year ,genre1, genre2, genre3, person1, person2, company, country, runTime}: Props ) {
+export function SignIn2({linkTo, actorsList, year ,genre1, genre2, genre3, person1, person2, company, country, runTime}: Props ) {
 
-  
+  let options:any = []
+  actorsList.map((item: {name: string }) =>
+    options.push({value: `${item.name}`, label:`${item.name}`}) 
+  );
+
 
   useEffect(() => {
     //console.log(document.getElementById('printButton'));
@@ -41,15 +47,15 @@ export function SignIn2({linkTo, year ,genre1, genre2, genre3, person1, person2,
   const [error, setError] = useState<string | null>("");
 
 
-  const inputRefGener1 = useRef<HTMLInputElement>(null);
-  const inputRefGener2 = useRef<HTMLInputElement>(null);
-  const inputRefGener3 = useRef<HTMLInputElement>(null);
-  const inputRefActor1 = useRef<HTMLInputElement>(null);
-  const inputRefActor2 = useRef<HTMLInputElement>(null);
+  // const inputRefGener1 = useRef<HTMLInputElement>(null);
+  // const inputRefGener2 = useRef<HTMLInputElement>(null);
+  // const inputRefGener3 = useRef<HTMLInputElement>(null);
+  // const inputRefActor1 = useRef<HTMLInputElement>(null);
+  // const inputRefActor2 = useRef<HTMLInputElement>(null);
   const inputRefLatestYear = useRef<HTMLInputElement>(null);
   const inputRefRunTime = useRef<HTMLInputElement>(null);
-  const inputRefOrigin = useRef<HTMLInputElement>(null);
-  const inputRefStudio = useRef<HTMLInputElement>(null);
+  // const inputRefOrigin = useRef<HTMLInputElement>(null);
+  // const inputRefStudio = useRef<HTMLInputElement>(null);
 
 
   const [selectedeGenre1, setSelectedGenre1] = useState('');
@@ -57,6 +63,8 @@ export function SignIn2({linkTo, year ,genre1, genre2, genre3, person1, person2,
   const [selectedeGenre3, setSelectedGenre3] = useState('');
   const [selectOrigin, setselectOriginRef] = useState('');
   const [selectCompany, setselectCompanyRef] = useState('');
+  const [selectedValue1, setSelectedValue1] = useState('');
+  const [selectedValue2, setSelectedValue2] = useState('');
   
   const handleChangeGenre1 = (event: { target: { value: SetStateAction<string> } }) => {
     setSelectedGenre1(event.target.value);
@@ -70,26 +78,33 @@ export function SignIn2({linkTo, year ,genre1, genre2, genre3, person1, person2,
     setSelectedGenre3(event.target.value);
   }
 
-  const handleChangeOrigin = (event: { target: { value: SetStateAction<string> } }) => {
+  const handleChangeOrigin = (event: { target: { value: SetStateAction<any> } }) => {
     setselectOriginRef(event.target.value);
   }
 
-  const handleChangecompany = (event: { target: { value: SetStateAction<string> } }) => {
+  const handleChangecompany = (event: { target: { value: SetStateAction<any> } }) => {
     setselectCompanyRef(event.target.value);
   }
+
+  const handleChange1 = (selectedValue1: SetStateAction<any> ) => {
+    setSelectedValue1(selectedValue1);
+  };
+  const handleChange2 = (selectedValue2: SetStateAction<any> ) => {
+    setSelectedValue2(selectedValue2);
+  };
   
   const apiCall = () => {
     const inputGener1 = selectedeGenre1;
     const inputGener2 = selectedeGenre2;
     const inputGener3 = selectedeGenre3;
 
-    const inputActor1 = inputRefActor1.current?.value;
-    const inputActor2 = inputRefActor2.current?.value;
-    const inputLatestYear = inputRefLatestYear.current?.value;
+    const inputActor1 = selectedValue1;
+    const inputActor2 = selectedValue2;
+    const inputLatestYear = inputRefLatestYear.current ? inputRefLatestYear.current.value  : 0.0;
     const inputRunTime = inputRefRunTime.current?.value;
-    const inputOrigin = selectOrigin//.current?.value;
-    const inputStudio = selectCompany//.current?.value;
-
+    const inputOrigin = selectOrigin ? selectOrigin : "US" //.current?.value;
+    const inputStudio = selectCompany ? selectCompany : null//.current?.value;
+    
 
     if (inputGener1) {
       const preferences = {
@@ -218,12 +233,24 @@ export function SignIn2({linkTo, year ,genre1, genre2, genre3, person1, person2,
             <div className=" grid grid-rows-1 grid-cols-2 gap-5">
               <div>
                 <Label htmlFor="actor 1" className="text-white">Actor 1: {person1}</Label>
-                <Input ref={inputRefActor1} id="actor1" placeholder="Example: Jeremy Piven" />
-                
+                <Select
+                  value={selectedValue1}
+                  onChange={handleChange1}
+                  options={options}
+                  placeholder="Select a Actor"
+                  className="rounded-lg text-sm py-2 "
+                />
               </div>
+              
               <div>
                 <Label htmlFor="actor 2" className="text-white">Actor 2: {person2}</Label>
-                <Input ref={inputRefActor2} id="actor2" placeholder="Example: Jenna Ortega" />
+                <Select
+                  value={selectedValue2}
+                  onChange={handleChange2}
+                  options={options}
+                  placeholder="Select a Actor"
+                  className="rounded-2xl text-sm py-2 "
+                />
               </div>
             </div>
             <div className="space-y-2">

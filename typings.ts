@@ -96,5 +96,17 @@ export type Genre = {
     
   };
 
+  export type ActorsNames ={
+    [x: string]: any;
+    name:string;
+  }
+
+  export type ActorsList ={
+    [x: string]: any;
+    res:ActorsNames[];
+  }
+
+  
+
   
 
