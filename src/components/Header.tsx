@@ -30,11 +30,11 @@ function Header() {
       <div className="flex items-center space-x-8">
 
         <Link href="/Main/Preferences" >
-            <p className="text-white hover:bg-black  hover:bg-opacity-70 rounded py-2 px-2 ">Preferences</p>
+            <p className="text-white hover:bg-black hover:border-slate-300 hover:border-b-2 hover:bg-opacity-70 rounded py-2 px-2 ">Preferences</p>
         </Link>
 
         <Link href="/Main/WishList" >
-          <p className="text-white hover:bg-black   hover:bg-opacity-70 rounded py-2 px-2 ">WishList</p>
+          <p className="text-white hover:bg-black hover:border-slate-300 hover:border-b-2  hover:bg-opacity-70 rounded py-2 px-2 ">WishList</p>
         </Link>
 
         <GenreDropdown />

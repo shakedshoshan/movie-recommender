@@ -6,34 +6,20 @@ import React, { useState, useRef, SetStateAction, useEffect, Children } from 're
 import Cookies from 'js-cookie';
 import { cookies } from "next/headers";
 import { getUserPreferences } from "@/lib/serverUtils";
-import { getActorIDByName, getOrigins, getexample } from "@/lib/getMovies";
 import { SignIn2 } from "@/components/component/sign-in2";
-import { Origins } from "../../../../typings";
+import { ActorsList } from "../../../../typings";
+import { promises as fs } from 'fs';
 
 
 
 
-async function Preferences() {
+export default async function Preferences() {
 
-  // const [data, setData] = useState<number>(0);
+  const file = await fs.readFile(process.cwd() + '/public/actors.json', 'utf8');
+  const data = JSON.parse(file) as ActorsList;
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const fetchedData = await getActorIDByName("Jeremy Piven");
-  //       setData(fetchedData);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   })();
-  // }, []);
-
+  //console.log(data)
   
-  const result:number = await getActorIDByName("Jeremy Piven");
-  
-
-  //  const result = await getexample()
-  //console.log(result)
 
   const cookieStore = cookies()
   const token = cookieStore.get('token')
@@ -42,20 +28,22 @@ async function Preferences() {
     tokenValue = token.value;
   }
   const userPreferences = await getUserPreferences(tokenValue);
+  //const props = [ {year: userPreferences.LatestYear},{ genre1:userPreferences.Genre1}, {genre2:userPreferences.Genre2}]
   //console.log(userPreferences)
 
     return (
         <div className=" flex flex-col items-center  text-3xl pt-20">
             <div className="space-y-2 max-w-3xl">
-            <h1 className="text-4xl font-bold text-white">Sign In to CineMate</h1>
-            <p className="text-gray-300 ">
-              Enter the personal information and movie's preferences you have
-            </p>
+              <h1 className="text-4xl font-bold text-white">Sign In to CineMate</h1>
+              <p className="text-gray-300 ">
+                Enter the personal information and movie's preferences you have
+              </p>
             
           </div>      
-            <SignIn2 linkTo='/Main' year={userPreferences.LatestYear} genre1={userPreferences.Genre1} genre2={userPreferences.Genre2} genre3={userPreferences.Genre3} person1={userPreferences.Actor1} person2={userPreferences.Actor2} company={userPreferences.Studio} country={userPreferences.Origin} runTime={userPreferences.runTime}/> 
+            <SignIn2 linkTo='/Main' actorsList={data} year={userPreferences.LatestYear} genre1={userPreferences.Genre1} genre2={userPreferences.Genre2} genre3={userPreferences.Genre3} person1={userPreferences.Actor1.value} person2={userPreferences.Actor2.value} company={userPreferences.Studio} country={userPreferences.Origin} runTime={userPreferences.runTime}/> 
         </div>
     )
 
 }
-export default Preferences;
+
+

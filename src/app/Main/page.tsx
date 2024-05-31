@@ -21,6 +21,7 @@ import { getUserPreferences } from "@/lib/serverUtils";
 import dynamic from "next/dynamic";
 import Template from "../Templaite";
 import Templat from "../Templaite";
+import { Value } from "@radix-ui/react-select";
 
 
 async function Main() {
@@ -39,15 +40,21 @@ async function Main() {
   }
 
   const userPreferences = await getUserPreferences(tokenValue);
-  console.log(userPreferences)
+  //console.log(userPreferences)
 
-
-  let ActorID = await getActorIDByName(userPreferences.Actor1);
-  let ActorName = userPreferences.Actor1;
+  let ActorID
+  let ActorName
+  if(userPreferences.Actor1 != null){
+    ActorID = await getActorIDByName(userPreferences.Actor1.value);
+    ActorName = userPreferences.Actor1.value;
+  } else {
+    ActorID===525
+  }
+  
   
   if(ActorID===525){
-    ActorID = await getActorIDByName(userPreferences.Actor2);
-    ActorName = userPreferences.Actor2;
+    ActorID = await getActorIDByName(userPreferences.Actor2.value);
+    ActorName = userPreferences.Actor2.value;
     if(ActorID===525){
       ActorName = "Christopher Nolan";
     }
@@ -59,7 +66,7 @@ async function Main() {
   const GenreID = await getGenreIdByName(userPreferences.Genre1);
   const FavoriteGenreMovie = await getMoviesByGenre(GenreID);
 
-  const coldStartMovies = await getColdStartMovies(userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1,userPreferences.Actor2,userPreferences.Studio, userPreferences.Origin);
+  const coldStartMovies = await getColdStartMovies(true, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
 
   return (
     
@@ -74,12 +81,10 @@ async function Main() {
     <div className={cn(
           "flex space-x-20 overflow-scroll scrollbar-hide px-10 items-center"
         )}>
-        { coldStartMovies.slice(0, 30).map((movie) => ( 
-            
-                
+        { coldStartMovies.slice(0, 15).map((movie) => ( 
             <div className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
               <a href={`/Main/${movie.id}-${movie.title}`}>
-              <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie}  /> </div>
+              <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie} /> </div>
               </a>
               <div className="flex items-center space-x-12 justify-center pb-2">
                     <div className="pl-2"><Rating id={movie.id}  /></div>

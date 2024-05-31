@@ -74,7 +74,7 @@ async function MoviePage({
       </div>
 
       
-      <div className="max-w-6xl w-screen mx-auto text-white space-y-6 flex flex-col  mt-32 xl:mt-42">
+      <div className="max-w-6xl w-screen mx-auto text-white space-y-6 flex flex-col  mt-20 xl:mt-20">
       <p className="font-bold text-3xl">Images: </p>
       <div className="flex space-x-4 overflow-scroll scrollbar-hide pt-16 pb-16 pl-24 scale-125">
         {images.backdrops.slice(5, 15).map((image) => (

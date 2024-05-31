@@ -29,7 +29,7 @@ export async function SignIn3() {
   console.log(userPreferences)
   
   
-  const coldStartMovies = await getColdStartMovies(userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1,userPreferences.Actor2,userPreferences.Studio, userPreferences.Origin);
+  const coldStartMovies = await getColdStartMovies(false, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
 
   return (
     <>

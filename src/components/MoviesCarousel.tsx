@@ -43,7 +43,7 @@ function MoviesCarousel({ title, movies, isVertical, name }: Props) {
                 </div>
               </div>
             ))
-          : movies.map((movie) => ( 
+          : movies.slice(0, 15).map((movie) => ( 
             
               <div className="bg-[#1e2242] space-x-6 rounded-2xl transition duration-200 ease-out">
                 <MovieCard key={movie.id} movie={movie} /> 

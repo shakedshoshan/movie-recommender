@@ -70,7 +70,7 @@ export default function BasicWishList({ id }: { id: any }) {
   return (
     <div>
       {wll? (
-        <Button onClick={handleClickAddToWishList} className="bg-[#2c315b] border-[#1d213f] space-x-2 ">
+        <Button onClick={handleClickAddToWishList} className="bg-[#2c315b] border-[#1d213f] space-x-2 p-4">
                   <Image
                               alt="Add"
                               src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIgMzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZGF0YS1uYW1lPSJMYXllciAyIj48cGF0aCBkPSJNMTYgMjlhMTMgMTMgMCAxIDEgMTMtMTMgMTMgMTMgMCAwIDEtMTMgMTNabTAtMjRhMTEgMTEgMCAxIDAgMTEgMTFBMTEgMTEgMCAwIDAgMTYgNVoiIGZpbGw9IiNmZmZmZmYiIGNsYXNzPSJmaWxsLTAwMDAwMCI+PC9wYXRoPjxwYXRoIGQ9Ik0xNiAyM2ExIDEgMCAwIDEtMS0xVjEwYTEgMSAwIDAgMSAyIDB2MTJhMSAxIDAgMCAxLTEgMVoiIGZpbGw9IiNmZmZmZmYiIGNsYXNzPSJmaWxsLTAwMDAwMCI+PC9wYXRoPjxwYXRoIGQ9Ik0yMiAxN0gxMGExIDEgMCAwIDEgMC0yaDEyYTEgMSAwIDAgMSAwIDJaIiBmaWxsPSIjZmZmZmZmIiBjbGFzcz0iZmlsbC0wMDAwMDAiPjwvcGF0aD48L2c+PHBhdGggZD0iTTAgMGgzMnYzMkgweiIgZmlsbD0ibm9uZSI+PC9wYXRoPjwvc3ZnPg==" 
@@ -88,7 +88,7 @@ export default function BasicWishList({ id }: { id: any }) {
                                 width={16}
                                 height={16}
                             />
-                    <p>Added WishList</p>
+                    <p>Added  WishList</p>
           </Button></Templat>
           
       )}
