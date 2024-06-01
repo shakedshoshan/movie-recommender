@@ -24,9 +24,6 @@ function Header() {
         
       </Link>
 
-      
-
-
       <div className="flex items-center space-x-8">
 
         <Link href="/Main/Preferences" >

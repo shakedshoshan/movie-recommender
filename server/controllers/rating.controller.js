@@ -26,3 +26,14 @@ exports.getRatings = async (req, res) => {
         res.status(400).json({ error });
       }
 };
+
+
+exports.getAllRatings = async (req, res) => {
+  try {
+      const userId = await authService.getUserIdFromToken(req.body.token);
+      const responseFromDb = await ratingService.getAllRating({userId: userId});
+      res.status(200).json({ rating: {responseFromDb} });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+};

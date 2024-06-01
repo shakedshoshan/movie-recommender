@@ -94,7 +94,7 @@ const options: RequestInit = {
 
 const response = await fetch(url.toString(), options);
 const data = (await response.json()) as Movie;
-
+//console.log(data)
 return data;
 
 }

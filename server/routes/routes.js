@@ -16,6 +16,7 @@ router.post("/fetchPreferences", preferencesController.fetchPreferences);
 
 router.post("/setRatings", ratingController.setRatings);
 router.post("/getRatings", ratingController.getRatings);
+router.post("/getAllRatings", ratingController.getAllRatings);
 
 router.post("/addToWishList", wishListController.addToWishList);
 router.post("/getWishList", wishListController.getWishList);

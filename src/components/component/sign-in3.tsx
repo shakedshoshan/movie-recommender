@@ -13,7 +13,7 @@ import Cookies from 'js-cookie';
 import { getColdStartMovies } from "@/lib/getColdStartMovies";
 import { cookies } from "next/headers";
 import axios from "axios";
-import { getUserIdFromServer, getUserPreferences } from "@/lib/serverUtils";
+import { getRatingsFromServer, getUserIdFromServer, getUserPreferences } from "@/lib/serverUtils";
 
 
 export async function SignIn3() {
@@ -26,10 +26,13 @@ export async function SignIn3() {
     tokenValue = token.value;
   }
   const userPreferences = await getUserPreferences(tokenValue);
-  console.log(userPreferences)
+  //console.log(userPreferences)
   
   
   const coldStartMovies = await getColdStartMovies(false, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
+
+  //const numOfRating = await getRatingsFromServer(tokenValue);
+  
 
   return (
     <>

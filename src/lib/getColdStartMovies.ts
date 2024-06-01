@@ -46,10 +46,10 @@ export async function getColdStartMovies(shuffle: boolean, year?: number, genre1
   genre2 = await  name_to_genreID(genre2, data);
   genre3 = await name_to_genreID(genre3, data);
 
-  console.log("11111111111111111111  " + person1 + "    " + person2 + "   1111111111111111111111")
+  //console.log("11111111111111111111  " + person1 + "    " + person2 + "   1111111111111111111111")
   const personName1 = await getPersonIdByName(person1);
   const personName2 = await getPersonIdByName(person2);
-  console.log("222222222222222222     " + personName1 + "    " + personName2+ "     22222222222222222")
+  //console.log("222222222222222222     " + personName1 + "    " + personName2+ "     22222222222222222")
 
   if(year == null)(
     year = 0.0

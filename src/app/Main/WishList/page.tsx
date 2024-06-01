@@ -1,10 +1,13 @@
-"use client"
+//"use client"
 import MoviesCarousel from "@/components/MoviesCarousel";
 import React, { useState }  from 'react'
-import { getDiscoverMovies } from "@/lib/getMovies";
+import { getDiscoverMovies, getMovieByID } from "@/lib/getMovies";
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { cookies } from 'next/headers'
+import { getWishlistFromServer } from "@/lib/serverUtils";
+import { Movie } from "../../../../typings";
 
 // async function WishList({
 //   params: { id },
@@ -17,40 +20,33 @@ import axios from 'axios';
 // }) {
 //   const movies = await getDiscoverMovies(id);
 
-export default function WishList() {
-  const token = Cookies.get("token");
-  let movieArrayFromDb = [];
+export default async function WishList() {
+  // const token = Cookies.get("token");
+  const cookieStore = cookies()
+  const token = cookieStore.get('token')
+  let tokenValue = '';
+  if(token){
+    tokenValue = token.value;
+  }
 
-  
+  let movieArrayFromDb:any = [];
 
-  useEffect(() => {
-      const checkWishList = { token: token };
-      axios.post('http://localhost:4000/getWishList', checkWishList, {
-          withCredentials: true
-      })
-      .then(response => {
-          if (response.status === 200) {
-            if(response.data.wishList){
-              movieArrayFromDb = response.data.wishList.responseFromDb;
-              console.log(movieArrayFromDb);
 
-            }
-            else{
+    movieArrayFromDb = await getWishlistFromServer(tokenValue)
 
-            }
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
-  }, [token]);
+    const fetchedMovies:any = [];
+
+    for(let i = 0; i<movieArrayFromDb.length; i++){
+      const movieData = await getMovieByID(movieArrayFromDb[i].movieId);
+      fetchedMovies.push(movieData);
+    }
 
   return (
     <div className="max-w-7xl mx-auto text-white">
       <div className="flex flex-col space-y-5 mt-32 xl:mt-42">
         <h1 className="text-6xl font-bold px-10">Your WishList:</h1>
 
-        {/* <MoviesCarousel title={`Results:`} movies={movies} isVertical /> */}
+        <MoviesCarousel title={`Results:`} movies={fetchedMovies} isVertical />
         
       </div>
     </div>

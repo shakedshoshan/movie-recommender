@@ -46,6 +46,7 @@ exports.getRating = async (ratingInfo) => {
     try {
         const user = await ratingModel.findOne({ id: ratingInfo.userId });
         if (user) {
+            console.log(user)
             // Check if the movieId already exists in the rating array
             const existingRatingIndex = user.rating.findIndex(
                 (r) => r.movieId === ratingInfo.movieId.id
@@ -59,6 +60,24 @@ exports.getRating = async (ratingInfo) => {
                 return null
             }
 
+        }
+        else {
+            return null
+        }
+  } catch (err) {
+    console.error('Error updating/creating rating:', err);
+  }
+
+};
+
+
+
+exports.getAllRating = async (ratingInfo) => {
+    try {
+        const user = await ratingModel.findOne({ id: ratingInfo.userId });
+        if (user) {
+            //console.log(user)
+            return user.rating 
         }
         else {
             return null
