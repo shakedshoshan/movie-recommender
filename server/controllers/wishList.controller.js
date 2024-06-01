@@ -7,8 +7,6 @@ exports.addToWishList = async (req, res) => {
 
         const responseFromDb = await wishListService.addToWishList({userId: userId, movieId: req.body.movieId});
         if(responseFromDb){
-          console.log("responseFromDb")
-          console.log(responseFromDb)
             res.status(200).json({ wishList: responseFromDb });
         }
         else {

@@ -33,7 +33,6 @@ export default async function WishList() {
 
 
     movieArrayFromDb = await getWishlistFromServer(tokenValue)
-
     const fetchedMovies:any = [];
 
     for(let i = 0; i<movieArrayFromDb.length; i++){

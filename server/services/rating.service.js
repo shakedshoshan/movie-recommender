@@ -3,9 +3,6 @@ const jwt = require('jsonwebtoken');
 
 exports.setRating = async (rating) => {
     try {
-        console.log("rating")
-        console.log(rating)
-        console.log("rating")
         const movieIdToPush = rating.movieId.id;
         const ratingToPust = rating.rating;
         const user = await ratingModel.findOne({ id: rating.userId });
@@ -46,7 +43,6 @@ exports.getRating = async (ratingInfo) => {
     try {
         const user = await ratingModel.findOne({ id: ratingInfo.userId });
         if (user) {
-            console.log(user)
             // Check if the movieId already exists in the rating array
             const existingRatingIndex = user.rating.findIndex(
                 (r) => r.movieId === ratingInfo.movieId.id

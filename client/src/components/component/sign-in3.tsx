@@ -31,7 +31,7 @@ export async function SignIn3() {
   
   const coldStartMovies = await getColdStartMovies(false, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
 
-  //const numOfRating = await getRatingsFromServer(tokenValue);
+  const numOfRating = await getRatingsFromServer(tokenValue);
   
 
   return (

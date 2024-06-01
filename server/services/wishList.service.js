@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken');
 
 exports.addToWishList = async (movieToAddToWishList) => {
     try {
-        console.log(`movieIdToPush: ${movieToAddToWishList.movieId}`)
-        console.log(`userId: ${movieToAddToWishList.userId}`)
         const user = await wishListModel.findOne({ id: movieToAddToWishList.userId });
         if (user) {
             user.movies.push({movieId: movieToAddToWishList.movieId});
@@ -20,8 +18,6 @@ exports.addToWishList = async (movieToAddToWishList) => {
             await newWishList.save();
             return true;
         }
-
-    console.log('WishList updated/created successfully');
   } catch (err) {
     console.error('Error updating/creating WishList:', err);
   }
