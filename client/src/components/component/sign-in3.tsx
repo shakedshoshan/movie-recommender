@@ -3,7 +3,7 @@
  * @see https://v0.dev/t/UDj2L058Cig
  */
 
-//"use client"
+"use client"
 import { Button } from "@/components/ui/button"
 import MovieCardRating from "../MovieCardRating"
 import Rating from "../Rating";
@@ -14,26 +14,56 @@ import { getColdStartMovies } from "@/lib/getColdStartMovies";
 import { cookies } from "next/headers";
 import axios from "axios";
 import { getRatingsFromServer, getUserIdFromServer, getUserPreferences } from "@/lib/serverUtils";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
+type Props = { coldStartMovies: any[], token: string}
 
-export async function SignIn3() {
+export default function SignIn3({coldStartMovies, token}: Props) {
 
-
-  const cookieStore = cookies()
-  const token = cookieStore.get('token')
-  let tokenValue = '';
-  if(token){
-    tokenValue = token.value;
-  }
-  const userPreferences = await getUserPreferences(tokenValue);
-  //console.log(userPreferences)
+  // const [error, setError] = useState<string | null>(null); // Initialize error with null
+  // const [check, setCheck] = useState(false);
+  // const router = useRouter()
   
-  
-  const coldStartMovies = await getColdStartMovies(false, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
+  // useEffect(() => {
 
-  const numOfRating = await getRatingsFromServer(tokenValue);
-  
+  //   const fetchRatings = async () => {
+  //     try {
+  //       const token1 = Cookies.get('token');
+  //       if (!token1) {
+  //         setError('Missing token in cookies'); // Handle missing token
+  //         return; // Exit early if no token
+  //       }
+  //       //const fetchedRatings = await getRatingsFromServer(token1);
+  //       console.log("\n\n------------data fetch-------------\n\n")
+  //       //console.log(fetchedRatings.length);
 
+  //       // if(fetchedRatings.length >= 10){
+  //       //   //router.push('/Main')
+  //       // } else {
+  //       //   if(!check){
+  //       //     toast.error(`You need to rate 10 movies before continue.\nYou have rated: ${fetchedRatings.length} `, {
+  //       //     position: "top-right", autoClose: 2000,
+  //       //   });
+  //       // }
+  //       // }
+        
+  //     } catch (err) {
+  //       //setError(err.message); // Handle errors
+  //     } finally {
+  //       setCheck(false)
+  //     }
+  //   };
+  //   fetchRatings();
+  // }, [check]);
+
+  // const handleClick = () => {
+  //     setCheck(true)  
+  //   };
+
+  
   return (
     <>
       <div className="py-12 max-w-7xl">
@@ -59,7 +89,7 @@ export async function SignIn3() {
         <div className="relative flex min-h-screen flex-col justify-center overflow-hidden py-6 pl-4 pr-4 ">
         <div className="grid grid-cols-4 gap-12">
         { coldStartMovies.map((movie) => (   
-            <div className="rounded-2xl flex flex-col items-center justify-cente bg-[#3c3aa6] hover:scale-105 transition pt-2 pl-2 pr-2">
+            <div key={movie.title} className="rounded-2xl flex flex-col items-center justify-cente bg-[#3c3aa6] hover:scale-105 transition pt-2 pl-2 pr-2">
               <MovieCardRating key={movie.id} movie={movie}  /> 
               <div className="flex items-center justify-center scale-150 pb-2">
                     <Rating id={movie.id}  />
@@ -68,8 +98,9 @@ export async function SignIn3() {
               ))}
             </div>
           </div>
-          <Link href="/Main" >
-            <Button className="w-full p-6 bg-slate-700  text-2xl">Submit</Button>
+         
+         <Link href="/Main">
+          <Button className="w-full p-6 bg-slate-700  text-2xl" >Submit</Button>
           </Link>
         </div>
       </div>
@@ -77,8 +108,8 @@ export async function SignIn3() {
   )
 }
 
-export default SignIn3;
-function getTokenIdFromServer(token: import("next/dist/compiled/@edge-runtime/cookies").RequestCookie | undefined) {
-  throw new Error("Function not implemented.");
-}
+
+// function getTokenIdFromServer(token: import("next/dist/compiled/@edge-runtime/cookies").RequestCookie | undefined) {
+//   throw new Error("Function not implemented.");
+// }
 

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { getMovieRecommendations } from "./getMovies";
+import { MovieID } from "../../typings";
 
 
 
@@ -84,7 +86,6 @@ export async function getUserIdFromServer(tokenValue: string) {
     
         if (response.status === 200 ) {
           if (response.data.rating) {
-            console.log("----------here-----------")
             //console.log(response.data.rating.responseFromDb)
             return response.data.rating.responseFromDb;
           }
@@ -97,3 +98,21 @@ export async function getUserIdFromServer(tokenValue: string) {
     
       return []; // Return null if no rating is found or an error occurs
     }
+
+
+    export async function processMovieElements(elements: any[]):Promise<MovieID[]> {
+      const movies:MovieID[] = []
+      let movie:any
+      for (const element of elements) {
+          if(element.movieId != undefined) {
+            //console.log(`Processing element with movieId: ${element.movieId}`);
+            movie = getMovieRecommendations(element.movieId); // Call getMovieById for each movieId
+            console.log(movie.id);
+            movies.push(movie)
+          }
+         
+        }
+      // console.log("\n\n------------data fetch-------------\n\n")
+      // console.log(movies)
+      return movies
+  }

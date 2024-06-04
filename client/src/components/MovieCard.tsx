@@ -15,7 +15,7 @@ import WishListButton from "./WishListButton";
 
 async function MovieCard({ movie }: { movie: Movie }) {
 
-  const year = movie.release_date?.match(/^\d{4}/);
+  const year = movie.release_date?.match(/^\d{4}/)? movie.release_date.match(/^\d{4}/): null;
  
 
   return (

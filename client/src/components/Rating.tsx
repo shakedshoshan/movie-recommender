@@ -16,9 +16,9 @@ export default function BasicRating(id: any) {
   
   useEffect(() => {
     const rating = { token: token, movieId: id };
-  axios.post('http://localhost:4000/getRatings', rating, {
+    axios.post('http://localhost:4000/getRatings', rating, {
     withCredentials: true 
-  })
+    })
     .then(response => {
       if (response.status === 200) {
         setValue(response.data.rating.responseFromDb)
@@ -34,7 +34,6 @@ export default function BasicRating(id: any) {
 
   
   const handleRatingClick = async (newValue: number | null) => {
-    console.log("BASICRATING");
     console.log("newValue");
     setValue(newValue);
     const rating = { token: token, movieId: id, rating: newValue };

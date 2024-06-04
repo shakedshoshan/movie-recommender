@@ -24,7 +24,7 @@ export async function getPreferences(){
 });
 }
 
-export async function getColdStartMovies(shuffle: boolean, year?: number, genre1?: string, genre2?: string, genre3?: string, person1?: any, person2?: any, company?: string, country?: string ) {
+export async function getColdStartMovies(shuffle: boolean, year?: number, genre1?: string, genre2?: string, genre3?: string, person1?: any, person2?: any, company?: string, country?: string ):Promise<any[]> {
 
   let token =  Cookies.get("token");
   console.log(token);

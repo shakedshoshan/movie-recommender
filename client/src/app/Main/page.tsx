@@ -5,7 +5,7 @@ import MovieCardRating from "@/components/MovieCardRating";
 import MoviesCarousel from "@/components/MoviesCarousel";
 import Rating from "@/components/Rating";
 import { getColdStartMovies } from "@/lib/getColdStartMovies";
-import { getActorIDByName, getGenreIdByName, getMoviesByActor, getMoviesByGenre, getPersonIdByName, getPopularMovies, getTopRatedMovies } from "@/lib/getMovies";
+import { getActorIDByName, getGenreIdByName, getMovieRecommendations, getMoviesByActor, getMoviesByGenre, getPersonIdByName, getPopularMovies, getTopRatedMovies } from "@/lib/getMovies";
 import { cn } from "@/lib/utils";
 import { ClassNames } from "@emotion/react";
 import { title } from "process";
@@ -17,11 +17,13 @@ import error from "next/error";
 import Cookies from 'js-cookie';
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { cookies } from 'next/headers'
-import { getUserPreferences } from "@/lib/serverUtils";
+import { getRatingsFromServer, getUserPreferences } from "@/lib/serverUtils";
 import dynamic from "next/dynamic";
 import Template from "../Templaite";
 import Templat from "../Templaite";
 import { Value } from "@radix-ui/react-select";
+import ModelRecommends from "@/components/ModelRecommends";
+import LoadingComp from "@/components/LoadingComp";
 
 
 async function Main() {
@@ -38,6 +40,9 @@ async function Main() {
   if(token){
     tokenValue = token.value;
   }
+
+  // const numOfRating = await getRatingsFromServer(tokenValue);
+  // console.log(numOfRating)
 
   const userPreferences = await getUserPreferences(tokenValue);
   //console.log(userPreferences)
@@ -68,11 +73,15 @@ async function Main() {
 
   const coldStartMovies = await getColdStartMovies(true, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
 
+  // const m = await getMovieRecommendations(278);
+  // console.log(m)
+
   return (
     
     <div className="flex flex-col space-y-2 forced-colors:active">
-      <Suspense fallback={<div>Loading...</div>}>
+      
       <CarouselBannerWrapper />
+      
     <div className="flex flex-col space-y-6 xl:-mt-48">
 
       {/* our recommend algorithm*/}
@@ -82,7 +91,7 @@ async function Main() {
           "flex space-x-20 overflow-scroll scrollbar-hide px-10 items-center"
         )}>
         { coldStartMovies.slice(0, 15).map((movie) => ( 
-            <div className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
+            <div key={movie.id} className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
               <a href={`/Main/${movie.id}-${movie.title}`}>
               <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie} /> </div>
               </a>
@@ -97,8 +106,11 @@ async function Main() {
           )
         }
         </div>
-        
-
+      
+      <h1 className="text-xl text-white font-bold px-10 py-1">Model Recommends</h1>
+      
+        <ModelRecommends />
+      
         
       <MoviesCarousel movies={topRatedMovies} title="Top Rated" />
       
@@ -109,7 +121,7 @@ async function Main() {
       
     
     </div>
-    </Suspense>
+    
     </div>
     
   );
@@ -124,4 +136,5 @@ export default Main;
 function name_to_genreID(arg0: number) {
   throw new Error("Function not implemented.");
 }
+
 

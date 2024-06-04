@@ -1,6 +1,7 @@
 import { Value } from "@radix-ui/react-select";
-import { Movie, SearchResults, Movies, Video, Person, personProps, movieImages, movieImage, MovieCast, Origins, Origin, Genres } from "../../typings";
+import { Movie, SearchResults, MovieID, Video, Person, personProps, movieImages, movieImage, MovieCast, Origins, Origin, Genres } from "../../typings";
 import Cookies from 'js-cookie';
+import axios from "axios";
 
 
 async function fetchFromTMDB(url: URL, cacheTime?: number) {
@@ -314,6 +315,50 @@ export async function getRelatedMoviesById(id: number){
                     const result = await getActorIDByName("Jeremy Piven");
                     console.log(result)
                     return result
+                  }
+
+                  export async function getMovieRecommendations(id: number): Promise<MovieID | undefined> {
+                      const url = `https://api.themoviedb.org/3/movie/${id}`;
+                      const apiKey = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjVlOTc2Yjc4YTVlYTExYWViOGY1NGI2Y2E4YWJlZiIsInN1YiI6IjY1YWY5MGQyNjdiNjEzMDEwYzYwYjViZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RSwHSy3pLGc4btjjRa2m0v86JLDWcQd8DOIauCZ-lIs'; // Replace with your actual API key
+                    
+                      try {
+                        const response = await axios.get(url, {
+                          headers: {
+                            Authorization: apiKey,
+                            'Content-Type': 'application/json', // Recommended header for JSON requests
+                          },
+                        });
+                    
+                        const data:MovieID = response.data;
+                        const m:MovieID = {backdrop_path:data.backdrop_path, id:data.id, title:data.title, release_date:data.release_date}
+                        //console.log(data)
+                        return m;
+                      } catch (error) {
+                        console.error(error);
+                        //return null; // Or throw an error if appropriate
+                      }
+                    
+                    
+
+
+
+                    // const url = new URL(`https://api.themoviedb.org/3/movie/${id}`);
+                    // const options = {
+                    //   method: 'GET',
+                    //   headers: {
+                    //     accept: 'application/json',
+                    //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjVlOTc2Yjc4YTVlYTExYWViOGY1NGI2Y2E4YWJlZiIsInN1YiI6IjY1YWY5MGQyNjdiNjEzMDEwYzYwYjViZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RSwHSy3pLGc4btjjRa2m0v86JLDWcQd8DOIauCZ-lIs'
+                    //   }
+                    // };
+                    
+                    // try {
+                    //   const response = await fetch(url, options);
+                    //   const data = (await response.json()) as Movie;
+                    //   return data;
+                    // } catch (err) {
+                    //   console.error(err);
+                    //   return null; // Or throw an error if appropriate
+                    // }
                   }
                   
 

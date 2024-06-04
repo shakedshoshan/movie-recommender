@@ -5,15 +5,12 @@ import Image from "next/image";
 import { Movie } from "../../typings";
 import Link from "next/link";
 import Rating from "./Rating";
-import React,{ useState } from "react";
-import { getTrailerById } from "@/lib/getMovies";
-import VideoPlayer from "./VideoPlayer";
-import { Button } from "./ui/button";
-import WishListButton from "./WishListButton";
+import React,{ JSXElementConstructor, useState } from "react";
 
 
 
-async function MovieCardRaring({ movie }: { movie: Movie }) {
+
+async function MovieCardRaring({ movie }: { movie: any }) {
 
   const year = movie.release_date.match(/^\d{4}/);
 

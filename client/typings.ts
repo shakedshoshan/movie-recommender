@@ -20,8 +20,11 @@ export type Movie = {
     vote_count: number;
   };
 
-  export type Movies = {
-    wishList: Movie[];
+  export type MovieID = {
+    backdrop_path: string;
+    id: number;
+    title: string;
+    release_date: string;
   };
   
   export type SearchResults = {
