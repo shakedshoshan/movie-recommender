@@ -8,9 +8,9 @@ import Rating from "./Rating";
 import React,{ JSXElementConstructor, useState } from "react";
 
 
+type Props = { movie: Movie }
 
-
-async function MovieCardRaring({ movie }: { movie: any }) {
+async function MovieCardRaring({ movie }: Props) {
 
   const year = movie.release_date.match(/^\d{4}/);
 

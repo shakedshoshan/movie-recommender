@@ -24,6 +24,12 @@ function Header() {
         
       </Link>
 
+      <Link href="/" className="mr-10">
+            <p className=" text-white items-start mr-96  hover:bg-black hover:border-slate-300 hover:bg-opacity-70 rounded py-1 px-1 ">Log out</p>
+      </Link>
+
+      
+
       <div className="flex items-center space-x-8">
 
         <Link href="/Main/Preferences" >

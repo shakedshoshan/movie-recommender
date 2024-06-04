@@ -33,26 +33,26 @@ function MoviesCarousel({ title, movies, isVertical, name }: Props) {
                     "flex flex-col space-y-5  items-center lg:flex-row space-x-5"
                 )}
               >
-                <MovieCard key={movie.popularity} movie={movie} />
+                <MovieCard key={movie.id} movie={movie} />
                 <div className="max-w-2xl pl-8">
                   <p className="font-bold"> {movie.title} ({movie.release_date?.split("-")[0]})</p> 
                   <hr className="mb-3" />
                   <p className="py-2">{movie.overview}</p>
                   <h3 className="font-bold">Rating: {movie.vote_average} ({movie.vote_count})</h3>
                   <div className="flex flex-row items-center space-x-96">
-                  <Rating key={movie.original_title} id={movie.id} />
-                  <WishListButton key={movie.imdb_id} id={movie.id}/>
+                  <Rating key={`rating-${movie.id}`} id={movie.id} />
+                  <WishListButton key={`wishlist-${movie.id}`} id={movie.id}/>
                 </div>
                 </div>
               </div>
             ))
           : movies.slice(0, 15).map((movie) => ( 
             
-              <div key={movie.popularity} className="bg-[#1e2242] space-x-6 rounded-2xl transition duration-200 ease-out">
-                <MovieCard key={movie.revenue} movie={movie} /> 
+              <div key={movie.id} className="bg-[#1e2242] space-x-6 rounded-2xl transition duration-200 ease-out">
+                <MovieCard key={movie.id} movie={movie} /> 
                 <div className="flex items-center space-x-20 pt-4">
-                      <Rating key={movie.original_title} id={movie.id} />
-                      <WishListButton key={movie.imdb_id} id={movie.id}/>
+                      <Rating key={`rating-${movie.id}`} id={movie.id} />
+                      <WishListButton key={`wishlist-${movie.id}`} id={movie.id}/>
                     </div>
                 </div>
            

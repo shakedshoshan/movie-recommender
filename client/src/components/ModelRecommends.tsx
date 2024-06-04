@@ -17,7 +17,6 @@ export default function ModelRecommends(){
     const [ratings, setRatings] = useState<MovieID[]>([]); 
 
   useEffect(() => {
-    setIsLoading(true);
     const fetchRatings = async () => {
         
       try {
@@ -62,12 +61,11 @@ export default function ModelRecommends(){
 
     return(
         <div>
+          <div className="flex flex-row">
+            <h1 className="text-xl text-white font-bold px-10 py-1">Model Recommends</h1>
             <button onClick={handleClick} type="submit" className="ml-[50px] text-white text-1xl bg-[#3a49d4] rounded-sm hover:bg-[#343d91] border-[#1d213f] space-x-2.5 p-2">New reccomends</button>
-            
-            <Suspense fallback={<LoadingComp />}>
-              {isLoading? <LoadingComp /> :  <MoviesCarousel movies={ratings}/> }
-            </Suspense>
-              
+            </div>
+            {isLoading? <LoadingComp /> :  <MoviesCarousel movies={ratings}/> }
         </div>
     )
 }

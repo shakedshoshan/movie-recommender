@@ -24,6 +24,7 @@ import Templat from "../Templaite";
 import { Value } from "@radix-ui/react-select";
 import ModelRecommends from "@/components/ModelRecommends";
 import LoadingComp from "@/components/LoadingComp";
+import ColdStartarusel from "@/components/ColdStartarusel";
 
 
 async function Main() {
@@ -71,7 +72,7 @@ async function Main() {
   const GenreID = await getGenreIdByName(userPreferences.Genre1);
   const FavoriteGenreMovie = await getMoviesByGenre(GenreID);
 
-  const coldStartMovies = await getColdStartMovies(true, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
+  // const coldStartMovies = await getColdStartMovies(true, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
 
   // const m = await getMovieRecommendations(278);
   // console.log(m)
@@ -86,30 +87,14 @@ async function Main() {
 
       {/* our recommend algorithm*/}
       <p className="text-4xl text-white font-bold px-10 pt-2">Reccomends For You</p>
-      
-    <div className={cn(
-          "flex space-x-20 overflow-scroll scrollbar-hide px-10 items-center"
-        )}>
-        { coldStartMovies.slice(0, 15).map((movie) => ( 
-            <div key={movie.id} className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
-              <a href={`/Main/${movie.id}-${movie.title}`}>
-              <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie} /> </div>
-              </a>
-              <div className="flex items-center space-x-12 justify-center pb-2">
-                    <div className="pl-2"><Rating id={movie.id}  /></div>
-                    <div className="pr-2"><WishListButton id={movie.id}/> </div>
-                    
-              </div>
-              </div>
-              
-          )
-          )
-        }
-        </div>
-      
-      <h1 className="text-xl text-white font-bold px-10 py-1">Model Recommends</h1>
-      
-        <ModelRecommends />
+      <Suspense fallback={<LoadingComp />}>
+      <ColdStartarusel token={tokenValue}/>
+      </Suspense>
+    
+    
+      <Suspense fallback={<LoadingComp />}>
+      <ModelRecommends />
+      </Suspense>
       
         
       <MoviesCarousel movies={topRatedMovies} title="Top Rated" />

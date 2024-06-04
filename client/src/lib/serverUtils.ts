@@ -75,7 +75,7 @@ export async function getUserIdFromServer(tokenValue: string) {
       return []; // Return an empty array if no data is found or an error occurs
     }
 
-
+    
     export async function getRatingsFromServer(tokenValue: string): Promise<any[]> {
       const rating = { token: tokenValue };
     

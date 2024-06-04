@@ -12,8 +12,8 @@ import { Button } from "./ui/button";
 import WishListButton from "./WishListButton";
 
 
-
-async function MovieCard({ movie }: { movie: Movie }) {
+type Props = { movie: Movie }
+async function MovieCard({ movie }:Props) {
 
   const year = movie.release_date?.match(/^\d{4}/)? movie.release_date.match(/^\d{4}/): null;
  
