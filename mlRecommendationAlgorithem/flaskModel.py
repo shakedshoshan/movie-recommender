@@ -35,9 +35,9 @@ def generate_recommendations(input_object, algo, data, userId):
     # Filter predictions for the specific user
     user_predictions = [pred for pred in predictions if pred.uid == userId]
     user_predictions.sort(key=lambda x: x.est, reverse=True)
-    top_10_recommendations = user_predictions[:10]
+    top_10_recommendations = user_predictions[:20]
 
-    print(f"Top 10 recommendations for User {userId}:")
+    print(f"Top 20 recommendations for User {userId}:")
     for pred in top_10_recommendations:
         print(f"Movie ID: {pred.iid}, Estimated Rating: {pred.est:.2f}")
 

@@ -67,5 +67,6 @@ export default function BasicRating(id: any) {
         emptyIcon=""
       />
     </Box>
+    
   );
 }

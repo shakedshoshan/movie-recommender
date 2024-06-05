@@ -15,7 +15,7 @@ import MovieCardRating from "./MovieCardRating";
 
 type Props = { token:string };
 
-async function ColdStartarusel({ token}: Props) {
+async function ColdStartarusel({token}: Props) {
   const wl = true;
 
   const userPreferences = await getUserPreferences(token);
@@ -28,7 +28,7 @@ async function ColdStartarusel({ token}: Props) {
         <div className={cn(
             "flex space-x-20 overflow-scroll scrollbar-hide px-10 items-center"
         )}>
-        { coldStartMovies.slice(0, 15).map((movie) => ( 
+        { coldStartMovies.slice(0, 10).map((movie) => ( 
             <div key={movie.id} className="rounded-2xl transition flex flex-col items-center justify-cente bg-[#5c6594] drop-shadow-lg ">
                 <a href={`/Main/${movie.id}-${movie.title}`}>
                 <div className="pb-4 pt-4 hover:scale-105 transition"><MovieCardRating key={movie.id} movie={movie} /> </div>

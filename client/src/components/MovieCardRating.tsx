@@ -8,7 +8,7 @@ import Rating from "./Rating";
 import React,{ JSXElementConstructor, useState } from "react";
 
 
-type Props = { movie: Movie }
+type Props = { movie: any }
 
 async function MovieCardRaring({ movie }: Props) {
 

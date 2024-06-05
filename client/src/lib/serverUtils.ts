@@ -100,19 +100,67 @@ export async function getUserIdFromServer(tokenValue: string) {
     }
 
 
-    export async function processMovieElements(elements: any[]):Promise<MovieID[]> {
-      const movies:MovieID[] = []
-      let movie:any
-      for (const element of elements) {
-          if(element.movieId != undefined) {
-            //console.log(`Processing element with movieId: ${element.movieId}`);
-            movie = getMovieRecommendations(element.movieId); // Call getMovieById for each movieId
-            console.log(movie.id);
-            movies.push(movie)
-          }
+  //   export async function processMovieElements(elements: any[]):Promise<MovieID[]> {
+  //     const movies:MovieID[] = []
+  //     let movie:any
+  //     for (const element of elements) {
+  //         if(element.movieId != undefined) {
+  //           //console.log(`Processing element with movieId: ${element.movieId}`);
+  //           movie = getMovieRecommendations(element.movieId); // Call getMovieById for each movieId
+  //           console.log(movie.id);
+  //           movies.push(movie)
+  //         }
          
+  //       }
+  //     // console.log("\n\n------------data fetch-------------\n\n")
+  //     // console.log(movies)
+  //     return movies
+  // }
+
+
+
+  export async function generateRecommendFromServer(tokenValue: string): Promise<any[]> {
+    const recommends = { token: tokenValue };
+  
+    try {
+      const response = await axios.post('http://localhost:4000/generateRecommendation', recommends, {
+        withCredentials: true,
+      });
+  
+      if (response.status === 200 ) {
+        if (response.data.recommendation) {
+          
+          return response.data.recommendation;
         }
-      // console.log("\n\n------------data fetch-------------\n\n")
-      // console.log(movies)
-      return movies
+      } else {
+        console.log('fail to set reccomends');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  
+    return []; // Return null if no rating is found or an error occurs
+  }
+
+
+  export async function getRecommendFromServer(tokenValue: string): Promise<any[]> {
+    const getRecommends = { token: tokenValue };
+  
+    try {
+      const response = await axios.post('http://localhost:4000/getRecommendation', getRecommends, {
+        withCredentials: true,
+      });
+      if (response.status === 200 ) {
+        if (response.data) {
+          //console.log(response.data.recommendation[0])
+          return response.data.recommendation;
+        }
+      } else {
+        console.log('fail to set reccomends');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  
+    return []; // Return null if no rating is found or an error occurs
   }

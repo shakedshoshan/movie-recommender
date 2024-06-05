@@ -317,7 +317,7 @@ export async function getRelatedMoviesById(id: number){
                     return result
                   }
 
-                  export async function getMovieRecommendations(id: number): Promise<MovieID | undefined> {
+                  export async function getMovieRecommendations(id: number): Promise<MovieID | undefined | null> {
                       const url = `https://api.themoviedb.org/3/movie/${id}`;
                       const apiKey = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjVlOTc2Yjc4YTVlYTExYWViOGY1NGI2Y2E4YWJlZiIsInN1YiI6IjY1YWY5MGQyNjdiNjEzMDEwYzYwYjViZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RSwHSy3pLGc4btjjRa2m0v86JLDWcQd8DOIauCZ-lIs'; // Replace with your actual API key
                     
@@ -330,12 +330,12 @@ export async function getRelatedMoviesById(id: number){
                         });
                     
                         const data:MovieID = response.data;
-                        const m:MovieID = {backdrop_path:data.backdrop_path, id:data.id, title:data.title, release_date:data.release_date}
+                        const m:MovieID = {backdrop_path:data.backdrop_path, id:data.id, title:data.title, release_date:data.release_date, poster_path:data.poster_path, vote_average:data.vote_average, vote_count:data.vote_count}
                         //console.log(data)
                         return m;
                       } catch (error) {
                         console.error(error);
-                        //return null; // Or throw an error if appropriate
+                        return null; // Or throw an error if appropriate
                       }
                     
                     
