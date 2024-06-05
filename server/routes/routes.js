@@ -3,6 +3,7 @@ const authController = require("../controllers/auth.controller");
 const preferencesController = require("../controllers/preferences.controller");
 const ratingController = require("../controllers/rating.controller");
 const wishListController = require("../controllers/wishList.controller");
+const recommendationController = require("../controllers/recommendation.controller");
 const router = express.Router();
 
 
@@ -22,6 +23,9 @@ router.post("/addToWishList", wishListController.addToWishList);
 router.post("/getWishList", wishListController.getWishList);
 router.post("/removeFromWishList", wishListController.removeFromWishList);
 router.post("/checkIfExistsIntWishList", wishListController.checkIfExistsIntWishList);
+
+router.post("/getRecommendation", recommendationController.getRecommendation);
+router.post("/generateRecommendation", recommendationController.generateRecommendation);
 
 
 

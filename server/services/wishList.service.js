@@ -1,5 +1,4 @@
 const wishListModel = require("../models/wishList");
-const jwt = require('jsonwebtoken');
 
 exports.addToWishList = async (movieToAddToWishList) => {
     try {
