@@ -12,16 +12,10 @@ import { title } from "process";
 import WishListButton from "@/components/WishListButton";
 import Link from "next/link";
 import AddedToWishList from "@/components/AddedToWishList";
-import { Suspense, useEffect, useState } from "react";
-import error from "next/error";
-import Cookies from 'js-cookie';
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { Suspense } from "react";
+
 import { cookies } from 'next/headers'
 import { getRatingsFromServer, getUserPreferences } from "@/lib/serverUtils";
-import dynamic from "next/dynamic";
-import Template from "../Templaite";
-import Templat from "../Templaite";
-import { Value } from "@radix-ui/react-select";
 import ModelRecommends from "@/components/ModelRecommends";
 import LoadingComp from "@/components/LoadingComp";
 import ColdStartarusel from "@/components/ColdStartarusel";
@@ -42,11 +36,8 @@ async function Main() {
     tokenValue = token.value;
   }
 
-  // const numOfRating = await getRatingsFromServer(tokenValue);
-  // console.log(numOfRating)
 
   const userPreferences = await getUserPreferences(tokenValue);
-  //console.log(userPreferences)
 
   let ActorID
   let ActorName
@@ -72,11 +63,6 @@ async function Main() {
   const GenreID = await getGenreIdByName(userPreferences.Genre1);
   const FavoriteGenreMovie = await getMoviesByGenre(GenreID);
 
-  // const coldStartMovies = await getColdStartMovies(true, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
-
-  // const m = await getMovieRecommendations(278);
-  // console.log(m)
-
   return (
     
     <div className="flex flex-col space-y-2 forced-colors:active">
@@ -86,16 +72,15 @@ async function Main() {
     <div className="flex flex-col space-y-6 xl:-mt-48">
 
       {/* our recommend algorithm*/}
-      <p className="text-4xl text-white font-bold px-10 pt-2">Reccomends For You</p>
+      <Suspense fallback={<LoadingComp />}>
+      <ModelRecommends />
+      </Suspense>
+
+      <p className="text-4xl text-white font-bold px-10 pt-2">Reccomended For You</p>
       <Suspense fallback={<LoadingComp />}>
       <ColdStartarusel token={tokenValue}/>
       </Suspense>
     
-    
-      <Suspense fallback={<LoadingComp />}>
-      <ModelRecommends />
-      </Suspense>
-      
         
       <MoviesCarousel movies={topRatedMovies} title="Top Rated" />
       

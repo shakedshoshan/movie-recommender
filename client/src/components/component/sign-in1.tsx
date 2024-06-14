@@ -42,13 +42,11 @@ export function SignIn1() {
       console.log(inputPassword)
       const cradentials = { userName: inputUserName, password: inputPassword };
       axios.post('http://localhost:4000/signUp', cradentials, {
-      // axios.get('http://localhost:4000/signUp', {
-        withCredentials: true // Include cookies in the request
+        withCredentials: true 
       })
         .then(response => {
           console.log("login");
           console.log(response);
-          // router.push('/signUp/preferences');
           if (response.status === 200) {
             console.log(response.data)
             const token = response.data.token;
@@ -58,8 +56,7 @@ export function SignIn1() {
             document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
             console.log("resposnse token")
             console.log(token)
-            // Cookies.set('token', token, { expires: 1, secure: true });
-            setSuccess(true); // Set success to true if status is 200
+            setSuccess(true); 
           } else {
             setError("Bad request. Please check your credentials.");
           }

@@ -1,6 +1,6 @@
 const authService = require("../services/auth.service");
 const userAuth = require("../models/userAuth");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const cookie = require("cookie");
@@ -71,20 +71,12 @@ exports.getIdFromToken = async (req, res) => {
       return res.status(401).json({ error: "Unauthorized" });
     }
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-
-    // Access the userId from the decoded token
     const userId = decoded.userId;
-    console.log(`id4444: ${userId}`)
-
     if (!userId) {
-      console.log(`id3`)
       return res.status(404).json({ error: "User not found" });
     }
-    console.log(`id2: ${userId}`)
-    // Do whatever you need with the user object
     res.status(200).json(userId);
   } catch (error) {
-    // Handle any errors, including token verification errors
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

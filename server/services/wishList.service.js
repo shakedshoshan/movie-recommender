@@ -71,9 +71,6 @@ exports.checkIfExistsIntWishList = async (wishListInfo) => {
                 return false;
             }
         }
-        else {
-            console.log('User not found');
-        }
     } catch (err) {
         console.error('Error removing movie from wishlist:', err);
     }

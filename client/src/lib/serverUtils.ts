@@ -1,63 +1,34 @@
 import axios from "axios";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-import { getMovieRecommendations } from "./getMovies";
-import { MovieID } from "../../typings";
-
+import { API_BASE_URL } from "./../../config";
 
 
 export async function getUserPreferences(tokenValue: string) {
-    try {
-        const response = await fetch('http://localhost:4000/fetchPreferences', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tokenValue: tokenValue }),
-        });
-    
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-    
-        const data = await response.json();
-        //console.log(data);
-        return data.preferences.responseFromDb.preferences;
-      } catch (error) {
-        console.error('Error fetching user ID:', error);
-        return null;
-      }
-    };
+  const data = { tokenValue: tokenValue };
+  try {
+    // const response = await axios.post('http://localhost:4000/fetchPreferences', data, {
+    const response = await axios.post(`${API_BASE_URL}/fetchPreferences`, data, {    
+      withCredentials: true,
+    });
 
-export async function getUserIdFromServer(tokenValue: string) {
-    try {
-
-        console.log("TOKEN VALUEEEEE")
-        console.log(tokenValue)
-        console.log("TOKEN VALUEEEEE")
-        const response = await fetch('http://localhost:4000/getIdFromToken', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ tokenValue: tokenValue }),
-        });
-    
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-    
-        const data = await response.json();
-        console.log('data');
-        console.log(data);
-        console.log('data');
-        return data;
-      } catch (error) {
-        console.error('Error fetching user ID:', error);
-        return null;
+    if (response.status === 200) {
+      if (response.data.preferences.responseFromDb.preferences) {
+        return response.data.preferences.responseFromDb.preferences;
+      } else {
+        console.log('\n---------------not found wl-------------\n');
       }
-    };
-  
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+  return []; 
+};
+
     export async function getWishlistFromServer(tokenValue: string): Promise<any[]> {
       const checkWishList = { token: tokenValue };
-    
       try {
-        const response = await axios.post('http://localhost:4000/getWishList', checkWishList, {
+        // const response = await axios.post('http://localhost:4000/getWishList', checkWishList, {
+          const response = await axios.post(`${API_BASE_URL}/getWishList`, checkWishList, {
           withCredentials: true,
         });
     
@@ -98,26 +69,6 @@ export async function getUserIdFromServer(tokenValue: string) {
     
       return []; // Return null if no rating is found or an error occurs
     }
-
-
-  //   export async function processMovieElements(elements: any[]):Promise<MovieID[]> {
-  //     const movies:MovieID[] = []
-  //     let movie:any
-  //     for (const element of elements) {
-  //         if(element.movieId != undefined) {
-  //           //console.log(`Processing element with movieId: ${element.movieId}`);
-  //           movie = getMovieRecommendations(element.movieId); // Call getMovieById for each movieId
-  //           console.log(movie.id);
-  //           movies.push(movie)
-  //         }
-         
-  //       }
-  //     // console.log("\n\n------------data fetch-------------\n\n")
-  //     // console.log(movies)
-  //     return movies
-  // }
-
-
 
   export async function generateRecommendFromServer(tokenValue: string): Promise<any[]> {
     const recommends = { token: tokenValue };
@@ -162,5 +113,5 @@ export async function getUserIdFromServer(tokenValue: string) {
       console.error('Error:', error);
     }
   
-    return []; // Return null if no rating is found or an error occurs
+    return []; 
   }

@@ -1,14 +1,16 @@
 "use server"
-import { Genres, Movie } from "../../typings";
+import { Genres } from "../../typings";
 import { getPersonIdByName } from "./getMovies";
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { API_BASE_URL } from "./../../config";
 
 
 export async function getPreferences(){
   let token = Cookies.get("token");
   console.log(token);
-  axios.post('http://localhost:4000/fetchPreferences', token)
+  // axios.post('http://localhost:4000/fetchPreferences', token)
+  axios.post(`${API_BASE_URL}/fetchPreferences`, token)
   .then(response => {
     console.log("get preferences");
     if (response.status === 200) {
@@ -24,11 +26,8 @@ export async function getPreferences(){
 });
 }
 
-export async function getColdStartMovies(shuffle: boolean, year?: number, genre1?: string, genre2?: string, genre3?: string, person1?: any, person2?: any, company?: string, country?: string ):Promise<any[]> {
-
-  let token =  Cookies.get("token");
-  console.log(token);
-    const url = "https://api.themoviedb.org/3/genre/movie/list?language=en";
+export async function getColdStartMovies(shuffle: boolean, year?: string, genre1?: string, genre2?: string, genre3?: string, person1?: any, person2?: any, company?: string, country?: string ):Promise<any[]> {
+  const url = "https://api.themoviedb.org/3/genre/movie/list?language=en";
   const options: RequestInit = {
     method: "GET",
     headers: {
@@ -46,13 +45,12 @@ export async function getColdStartMovies(shuffle: boolean, year?: number, genre1
   genre2 = await  name_to_genreID(genre2, data);
   genre3 = await name_to_genreID(genre3, data);
 
-  //console.log("11111111111111111111  " + person1 + "    " + person2 + "   1111111111111111111111")
   const personName1 = await getPersonIdByName(person1);
   const personName2 = await getPersonIdByName(person2);
-  //console.log("222222222222222222     " + personName1 + "    " + personName2+ "     22222222222222222")
+
 
   if(year == null)(
-    year = 0.0
+    year = "0.0"
   )
   //console.log(personName2)
   

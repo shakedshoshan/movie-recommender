@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     images:{
         domains: ["cdn.iconfinder.com","C:","links.papareact.com", "img10.hotstar.com","images.pexels.com", "image.tmdb.org" ],
         remotePatterns: [

@@ -18,18 +18,16 @@ export default async function Preferences() {
   const file = await fs.readFile(process.cwd() + '/public/actors.json', 'utf8');
   const data = JSON.parse(file) as ActorsList;
 
-  //console.log(data)
-  
-
   const cookieStore = cookies()
   const token = cookieStore.get('token')
   let tokenValue = '';
   if(token){
     tokenValue = token.value;
   }
+  console.log("zizvixxzc")
+  console.log(tokenValue)
+  console.log("zizvixxzc")
   const userPreferences = await getUserPreferences(tokenValue);
-  //const props = [ {year: userPreferences.LatestYear},{ genre1:userPreferences.Genre1}, {genre2:userPreferences.Genre2}]
-  //console.log(userPreferences)
 
     return (
         <div className=" flex flex-col items-center  text-3xl pt-20">

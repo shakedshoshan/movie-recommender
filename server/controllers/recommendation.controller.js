@@ -5,6 +5,7 @@ const recommendation = require("../models/recommendation");
 
 exports.generateRecommendation = async (req, res) => {
     try {
+        console.log("generateRecommendation")
         const userId = await authService.getUserIdFromToken(req.body.token);
         const ratings = await ratingService.getAllRating({userId: userId});
         if(ratings){
@@ -40,13 +41,14 @@ exports.generateRecommendation = async (req, res) => {
 
 exports.getRecommendation = async (req, res) => {
     try {
+        console.log("getRecommendation")
         const userId = await authService.getUserIdFromToken(req.body.token);
-        const ratings = await ratingService.getAllRating({userId: userId});
         const recommendation = await recommendationService.getRecommendation({userId: userId});
         if(recommendation){
             res.status(200).json({ recommendation: recommendation });
         }
         else{
+            console.log("In else")
             const ratings = await ratingService.getAllRating({userId: userId});
             if(ratings){
                 dataForAlgorithem = await recommendationService.prepareDataForAlgorithem({userId: userId, ratings: ratings})

@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - REACT_APP_ENVIRONMENT=docker
     depends_on:
       - server
 
@@ -15,6 +17,17 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "4000:4000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=docker
+
+  flask:
+    build:
+      context: ./flask
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flask:/app
+    depends_on:
+      - server

@@ -1,9 +1,12 @@
 const recommendationModel = require("../models/recommendation");
 const axios = require('axios');
+const { flaskApiBaseUrl } = require('./../config');
 
 exports.generateRecommendation = async (data) => {
     try {
-        const flaskApiUrl = 'http://localhost:5000/recommend';
+        console.log("generateRecommendation")
+        // const flaskApiUrl = 'http://localhost:5000/recommend';
+        const flaskApiUrl = `${flaskApiBaseUrl}/recommend`;
         const response = await axios.post(flaskApiUrl, data.data)
         return response.data;
     } catch (err) {

@@ -16,10 +16,10 @@ import MovieCardRating from "./MovieCardRating";
 type Props = { token:string };
 
 async function ColdStartarusel({token}: Props) {
-  const wl = true;
+
 
   const userPreferences = await getUserPreferences(token);
-  //console.log(userPreferences)
+
 
   const coldStartMovies = await getColdStartMovies(true, userPreferences.LatestYear, userPreferences.Genre1,userPreferences.Genre2,userPreferences.Genre3,userPreferences.Actor1.value,userPreferences.Actor2.value,userPreferences.Studio, userPreferences.Origin);
 

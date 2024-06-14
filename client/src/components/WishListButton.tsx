@@ -2,8 +2,6 @@
 import React, { useState }  from 'react'
 import Image from 'next/image'
 import { Button } from "./ui/button";
-import { Movie } from '../../typings';
-import { Movies } from '../../typings';
 import Templat from '@/app/Templaite';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';

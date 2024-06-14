@@ -1,18 +1,11 @@
 import { SignIn2 } from "@/components/component/sign-in2";
-import { getOrigins } from "@/lib/getMovies";
-import path from "path";
-import { useEffect, useState } from "react";
-import { Names } from "react-hook-form";
 import { ActorsList, ActorsNames } from "../../../../typings";
 import { promises as fs } from 'fs';
-
-
 
 export default async function SignIn() {
   const file = await fs.readFile(process.cwd() + '/public/actors.json', 'utf8');
   const data = JSON.parse(file) as ActorsList;
 
-  
 
     return (
         <div className=" flex flex-col items-center  text-3xl pt-10">
