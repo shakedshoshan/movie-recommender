@@ -1,5 +1,5 @@
-FROM node:20
-
+#FROM node:20
+FROM koyeb/docker-compose
 WORKDIR /app
 
 COPY package*.json ./
