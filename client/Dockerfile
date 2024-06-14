@@ -1,5 +1,5 @@
-#FROM node:18-alpine
-FROM koyeb/docker-compose
+FROM node:18-alpine
+
 WORKDIR /app
 
 COPY package*.json ./

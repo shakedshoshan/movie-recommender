@@ -1,5 +1,4 @@
-#FROM python:3.9-slim
-FROM koyeb/docker-compose
+FROM python:3.9-slim
 WORKDIR /app
 
 # Install system dependencies
