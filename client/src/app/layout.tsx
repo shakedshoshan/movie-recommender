@@ -21,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className=" bg-[#1A1C29]">
      
-        {children}
+        <div>
+          <main>{children}</main>
+        </div>
         
         
         

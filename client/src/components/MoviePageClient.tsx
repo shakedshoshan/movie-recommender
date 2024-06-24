@@ -68,7 +68,8 @@ export default function MoviePageClient({data, relatedMovies, cast, trailerKey, 
             {cast.cast.slice(0, 10).map((p) => (
             <div key={p.id}  className="space-y-2">
                 <Image className="hover:border-solid hover:border-stone-200 hover:border-2 hover:scale-105 rounded-full "
-                src={getImagePath(p.profile_path, true)}
+                src={p.profile_path ? `http://image.tmdb.org/t/p/original/${p.profile_path}`
+: "https://links.papareact.com/o8z"}
                 alt=""
                 width={250}
                 height={300}

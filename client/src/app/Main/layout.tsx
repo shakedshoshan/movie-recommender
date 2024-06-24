@@ -20,9 +20,11 @@ export default function DashboardLayout({
   return (
     <section>
       
-       
+       <header>
         <Header />
-        {children}
+        </header>
+        <div><main>{children}</main></div>
+        
         
         
         
