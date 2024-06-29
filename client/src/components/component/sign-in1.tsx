@@ -2,27 +2,18 @@
 
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import Link from "next/link"
 import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
-import Cookies from 'js-cookie';
-
-
-
 
 
 export function SignIn1() {
-  //console.log(document.getElementById('printButton'));
-  //const input = document.getElementById('firstName');
+  useEffect(() => {
+    console.log(document.getElementById('printButton'));
+    const input = document.getElementById('firstName');
 
-    useEffect(() => {
-        console.log("in useEffect si1");
-        console.log(document.getElementById('printButton'));
-        const input = document.getElementById('firstName');
-        
-    }, []); 
+  }, []);
 
 
   const [error, setError] = useState<string | null>(null);
@@ -30,33 +21,24 @@ export function SignIn1() {
 
   const inputRefUserName = useRef<HTMLInputElement>(null);
   const inputRefPassword = useRef<HTMLInputElement>(null);
-  
+
 
   const apiCall = () => {
     const inputUserName = inputRefUserName.current?.value;
     const inputPassword = inputRefPassword.current?.value;
-    
+
     if (inputUserName && inputPassword) {
-      // const router = useRouter();
-      console.log(inputUserName)
-      console.log(inputPassword)
       const cradentials = { userName: inputUserName, password: inputPassword };
       axios.post('http://localhost:4000/signUp', cradentials, {
-        withCredentials: true 
+        withCredentials: true
       })
         .then(response => {
-          console.log("login");
-          console.log(response);
           if (response.status === 200) {
-            console.log(response.data)
             const token = response.data.token;
             const expires = new Date(Date.now() + 3600000); // 1 hour from now
             document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/`;
-            console.log(response.data.token);
             document.cookie = `token=${token}; expires = in 1h for ${Date.now}`;
-            console.log("resposnse token")
-            console.log(token)
-            setSuccess(true); 
+            setSuccess(true);
           } else {
             setError("Bad request. Please check your credentials.");
           }
@@ -101,7 +83,7 @@ export function SignIn1() {
             <div className="space-y-2">
               <Label htmlFor="email" className="text-white">Email</Label>
               <div className="flex items-center">
-                <Input  id="email" placeholder="Enter your email" type="email"/>
+                <Input id="email" placeholder="Enter your email" type="email" />
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -126,10 +108,9 @@ export function SignIn1() {
           <div className="space-y-10">
             <div>
 
-                <Link href="/SignIn/preferences">
-                  <button className="w-full p-3 bg-slate-700  text-2xl rounded-xl text-white hover:bg-gray-800 transition " onClick={apiCall}>Submit</button>
-                </Link>
-                {/* <button className="hover:scale-115 w-full p-6 bg-slate-700 text-2xl" onClick={apiCall}>Submit</button> */}
+              <Link href="/SignIn/preferences">
+                <button className="w-full p-3 bg-slate-700  text-2xl rounded-xl text-white hover:bg-gray-800 transition " onClick={apiCall}>Submit</button>
+              </Link>
             </div>
           </div>
         </div>

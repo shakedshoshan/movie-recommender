@@ -13,7 +13,7 @@ export default function AgeBox() {
       autoComplete="off"
     >
       <div>
-        
+
         <TextField
           id="outlined-Age"
           label="Age"
@@ -22,7 +22,7 @@ export default function AgeBox() {
             shrink: true,
           }}
         />
-        
+
       </div>
     </Box>
   );

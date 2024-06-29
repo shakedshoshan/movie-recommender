@@ -10,7 +10,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Suspense } from "react";
 import LoadingComp from "./LoadingComp";
 
-type Props = { title?: string; movies: Movie[]| any[]| MovieID[]; isVertical?: boolean; name?: string };
+type Props = { title?: string; movies: Movie[] | any[] | MovieID[]; isVertical?: boolean; name?: string };
 
 function MoviesCarousel({ title, movies, isVertical, name }: Props) {
   const wl = true;
@@ -26,42 +26,42 @@ function MoviesCarousel({ title, movies, isVertical, name }: Props) {
       >
         {isVertical
           ? movies.map((movie) => (
-              <div
-                key={movie.id}
-                className={cn(
-                  isVertical &&
-                    "flex flex-col space-y-5  items-center lg:flex-row space-x-5"
-                )}
-              >
-                <MovieCard key={movie.id} movie={movie} />
-                <div className="max-w-2xl pl-8">
-                  <p className="font-bold"> {movie.title} ({movie.release_date?.split("-")[0]})</p> 
-                  <hr className="mb-3" />
-                  <p className="py-2">{movie.overview}</p>
-                  <h3 className="font-bold">Rating: {movie.vote_average} ({movie.vote_count})</h3>
-                  <div className="flex flex-row items-center space-x-96">
+            <div
+              key={movie.id}
+              className={cn(
+                isVertical &&
+                "flex flex-col space-y-5  items-center lg:flex-row space-x-5"
+              )}
+            >
+              <MovieCard key={movie.id} movie={movie} />
+              <div className="max-w-2xl pl-8">
+                <p className="font-bold"> {movie.title} ({movie.release_date?.split("-")[0]})</p>
+                <hr className="mb-3" />
+                <p className="py-2">{movie.overview}</p>
+                <h3 className="font-bold">Rating: {movie.vote_average} ({movie.vote_count})</h3>
+                <div className="flex flex-row items-center space-x-96">
                   <Rating key={`rating-${movie.id}`} id={movie.id} />
-                  <WishListButton key={`wishlist-${movie.id}`} id={movie.id}/>
-                </div>
+                  <WishListButton key={`wishlist-${movie.id}`} id={movie.id} />
                 </div>
               </div>
-            ))
-          : movies.slice(0, 15).map((movie) => ( 
-            
-              <div key={movie.id} className="bg-[#1e2242] space-x-6 rounded-2xl transition duration-200 ease-out">
-                <MovieCard key={movie.id} movie={movie} /> 
-                <div className="flex items-center space-x-20 pt-4">
-                      <Rating key={`rating-${movie.id}`} id={movie.id} />
-                      <WishListButton key={`wishlist-${movie.id}`} id={movie.id}/>
-                    </div>
-                </div>
-           
-            )
-             
-            )
-            
+            </div>
+          ))
+          : movies.slice(0, 15).map((movie) => (
 
-            }
+            <div key={movie.id} className="bg-[#1e2242] space-x-6 rounded-2xl transition duration-200 ease-out">
+              <MovieCard key={movie.id} movie={movie} />
+              <div className="flex items-center space-x-20 pt-4">
+                <Rating key={`rating-${movie.id}`} id={movie.id} />
+                <WishListButton key={`wishlist-${movie.id}`} id={movie.id} />
+              </div>
+            </div>
+
+          )
+
+          )
+
+
+        }
       </div>
     </div>
   );

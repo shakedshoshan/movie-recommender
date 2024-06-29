@@ -5,7 +5,6 @@ import { API_BASE_URL } from "./../../config";
 export async function getUserPreferences(tokenValue: string) {
   const data = { tokenValue: tokenValue };
   try {
-    // const response = await axios.post('http://localhost:4000/fetchPreferences', data, {
     const response = await axios.post(`${API_BASE_URL}/fetchPreferences`, data, {    
       withCredentials: true,
     });
@@ -27,7 +26,6 @@ export async function getUserPreferences(tokenValue: string) {
     export async function getWishlistFromServer(tokenValue: string): Promise<any[]> {
       const checkWishList = { token: tokenValue };
       try {
-        // const response = await axios.post('http://localhost:4000/getWishList', checkWishList, {
           const response = await axios.post(`${API_BASE_URL}/getWishList`, checkWishList, {
           withCredentials: true,
         });
@@ -57,7 +55,6 @@ export async function getUserPreferences(tokenValue: string) {
     
         if (response.status === 200 ) {
           if (response.data.rating) {
-            //console.log(response.data.rating.responseFromDb)
             return response.data.rating.responseFromDb;
           }
         } else {

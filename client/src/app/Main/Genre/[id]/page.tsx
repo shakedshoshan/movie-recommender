@@ -18,7 +18,7 @@ async function GenrePage({
         <h1 className="text-6xl font-bold px-10">Results for: {genre}</h1>
 
         <MoviesCarousel title={`Genre`} movies={movies} isVertical />
-        
+
       </div>
     </div>
   );

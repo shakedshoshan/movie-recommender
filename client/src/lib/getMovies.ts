@@ -95,7 +95,6 @@ const options: RequestInit = {
 
 const response = await fetch(url.toString(), options);
 const data = (await response.json()) as Movie;
-//console.log(data)
 return data;
 
 }
@@ -226,14 +225,7 @@ export async function getRelatedMoviesById(id: number){
 
 
             export async function getActorIDByName(ActorName?: String){
-              // const parts: string[] = ActorName.split(' ', 2);
-
-              // // If you need both parts and the second part could contain more spaces
-              // const firstPart: string = parts[0];
-              // const secondPart: string = ActorName.slice(ActorName.indexOf(' ') + 1);
-              const url = new URL(`https://api.themoviedb.org/3/search/person?query=${ActorName}&include_adult=false&language=en-US&page=1`);
-              
-              
+              const url = new URL(`https://api.themoviedb.org/3/search/person?query=${ActorName}&include_adult=false&language=en-US&page=1`);   
               const options: RequestInit = {
                 method: "GET",
                 headers: {
@@ -280,7 +272,6 @@ export async function getRelatedMoviesById(id: number){
                   
                   const response = await fetch(url.toString(), options);
                   const data = (await response.json()) as Origin;
-                  //console.log(data[5].english_name)
                   return data;
                   }
   
@@ -331,34 +322,11 @@ export async function getRelatedMoviesById(id: number){
                     
                         const data:MovieID = response.data;
                         const m:MovieID = {backdrop_path:data.backdrop_path, id:data.id, title:data.title, release_date:data.release_date, poster_path:data.poster_path, vote_average:data.vote_average, vote_count:data.vote_count}
-                        //console.log(data)
                         return m;
                       } catch (error) {
                         console.error(error);
                         return null; // Or throw an error if appropriate
                       }
-                    
-                    
-
-
-
-                    // const url = new URL(`https://api.themoviedb.org/3/movie/${id}`);
-                    // const options = {
-                    //   method: 'GET',
-                    //   headers: {
-                    //     accept: 'application/json',
-                    //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MjVlOTc2Yjc4YTVlYTExYWViOGY1NGI2Y2E4YWJlZiIsInN1YiI6IjY1YWY5MGQyNjdiNjEzMDEwYzYwYjViZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RSwHSy3pLGc4btjjRa2m0v86JLDWcQd8DOIauCZ-lIs'
-                    //   }
-                    // };
-                    
-                    // try {
-                    //   const response = await fetch(url, options);
-                    //   const data = (await response.json()) as Movie;
-                    //   return data;
-                    // } catch (err) {
-                    //   console.error(err);
-                    //   return null; // Or throw an error if appropriate
-                    // }
                   }
                   
 

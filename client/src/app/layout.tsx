@@ -20,16 +20,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className=" bg-[#1A1C29]">
-     
+
         <div>
           <main>{children}</main>
         </div>
-        
-        
-        
-        </body>
 
-        {/*<div className="text-gray-400 bg-gray-950 flex flex-col items-center justify-between">
+
+
+      </body>
+
+      {/*<div className="text-gray-400 bg-gray-950 flex flex-col items-center justify-between">
           <footer className="h-16 w-full related bottom-0  bg-gray-950 "><small className="absolute mt-6 ml-96 left-96 px-10 items-center justify-between">Powered by Shaked && David</small></footer>
   </div>*/}
     </html>

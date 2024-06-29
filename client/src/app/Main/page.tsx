@@ -15,14 +15,14 @@ async function Main() {
 
   const topRatedMovies = await getTopRatedMovies();
   const popularMovies = await getPopularMovies();
-  
-  
+
+
   const wl = true;
 
   const cookieStore = cookies()
   const token = cookieStore.get('token')
   let tokenValue = '';
-  if(token){
+  if (token) {
     tokenValue = token.value;
   }
 
@@ -31,59 +31,59 @@ async function Main() {
 
   let ActorID
   let ActorName
-  if(userPreferences.Actor1 != null){
+  if (userPreferences.Actor1 != null) {
     ActorID = await getActorIDByName(userPreferences.Actor1.value);
     ActorName = userPreferences.Actor1.value;
   } else {
-    ActorID===525
+    ActorID === 525
   }
-  
-  
-  if(ActorID===525){
+
+
+  if (ActorID === 525) {
     ActorID = await getActorIDByName(userPreferences.Actor2.value);
     ActorName = userPreferences.Actor2.value;
-    if(ActorID===525){
+    if (ActorID === 525) {
       ActorName = "Christopher Nolan";
     }
   }
-  
+
   const FavoriteActorMovies = await getMoviesByActor(ActorID);
-  if(FavoriteActorMovies[0].id === 1149947) ActorName = "Christopher Nolan";
-  
+  if (FavoriteActorMovies[0].id === 1149947) ActorName = "Christopher Nolan";
+
   const GenreID = await getGenreIdByName(userPreferences.Genre1);
   const FavoriteGenreMovie = await getMoviesByGenre(GenreID);
 
   return (
-    
+
     <div className="flex flex-col space-y-2 forced-colors:active">
-      
+
       <CarouselBannerWrapper />
-      
-    <div className="flex flex-col space-y-6 xl:-mt-48">
 
-      {/* our recommend algorithm*/}
-      <Suspense fallback={<LoadingComp />}>
-      <ModelRecommends />
-      </Suspense>
+      <div className="flex flex-col space-y-6 xl:-mt-48">
 
-      <p className="text-4xl text-white font-bold px-10 pt-2">Reccomended For You</p>
-      <Suspense fallback={<LoadingComp />}>
-      <ColdStartarusel token={tokenValue}/>
-      </Suspense>
-    
-        
-      <MoviesCarousel movies={topRatedMovies} title="Top Rated" />
-      
-      <MoviesCarousel movies={popularMovies} title="Popular" />
-      
-      <MoviesCarousel movies={FavoriteActorMovies} title="Favorite Actor - " name = {ActorName} />
-      <MoviesCarousel movies={FavoriteGenreMovie} title="Favorite Genre - " name = {userPreferences.Genre1} />
-      
-    
+        {/* our recommend algorithm*/}
+        <Suspense fallback={<LoadingComp />}>
+          <ModelRecommends />
+        </Suspense>
+
+        <p className="text-4xl text-white font-bold px-10 pt-2">Reccomended For You</p>
+        <Suspense fallback={<LoadingComp />}>
+          <ColdStartarusel token={tokenValue} />
+        </Suspense>
+
+
+        <MoviesCarousel movies={topRatedMovies} title="Top Rated" />
+
+        <MoviesCarousel movies={popularMovies} title="Popular" />
+
+        <MoviesCarousel movies={FavoriteActorMovies} title="Favorite Actor - " name={ActorName} />
+        <MoviesCarousel movies={FavoriteGenreMovie} title="Favorite Genre - " name={userPreferences.Genre1} />
+
+
+      </div>
+
     </div>
-    
-    </div>
-    
+
   );
 }
 

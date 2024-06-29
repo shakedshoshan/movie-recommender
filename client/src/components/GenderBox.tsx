@@ -16,7 +16,7 @@ const gender = [
     value: 'Both',
     label: 'Both',
   },
-  
+
 ];
 
 export default function SelectTextFields() {
@@ -35,7 +35,7 @@ export default function SelectTextFields() {
           select
           label="gender"
           defaultValue="EUR"
-          
+
         >
           {gender.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -43,7 +43,7 @@ export default function SelectTextFields() {
             </MenuItem>
           ))}
         </TextField>
-        
+
       </div>
     </Box>
   );

@@ -19,16 +19,16 @@ export default function DashboardLayout({
 }>) {
   return (
     <section>
-      
-       <header>
+
+      <header>
         <Header />
-        </header>
-        <div><main>{children}</main></div>
-        
-        
-        
-        
-        
+      </header>
+      <div><main>{children}</main></div>
+
+
+
+
+
     </section>
   );
 }

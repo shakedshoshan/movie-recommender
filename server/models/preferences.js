@@ -6,16 +6,15 @@ const preferencesSchema = new Schema(
     id: {
       type: String,
       unique: true,
-      required: true
+      required: true,
     },
     preferences: {
-      type: Object, 
-      default: {} 
+      type: Object,
+      default: {},
     },
   },
   { timestamps: true }
 );
-
 
 const preferences = mongoose.model("preferences", preferencesSchema);
 module.exports = preferences;

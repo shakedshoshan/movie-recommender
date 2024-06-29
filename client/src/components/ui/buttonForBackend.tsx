@@ -44,19 +44,19 @@ const LinkedButton: React.FC<ButtonProps> = ({ route, onClick }) => {
         'Content-Type': 'application/json', // adjust as needed
       },
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Success:', data);
-      onClick();
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Success:', data);
+        onClick();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   return (

@@ -13,13 +13,13 @@ export default function PasswordBlocks() {
       autoComplete="off"
     >
       <div>
-      <TextField
+        <TextField
           id="outlined-password-input"
           label="Password"
           type="password"
           autoComplete="current-password"
         />
-        
+
       </div>
     </Box>
   );

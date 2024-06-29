@@ -13,43 +13,42 @@ export default function BasicRating(id: any) {
   let usersRating = null;
 
   const [value, setValue] = React.useState<number | null>(null);
-  
+
   useEffect(() => {
     const rating = { token: token, movieId: id };
     axios.post('http://localhost:4000/getRatings', rating, {
-    withCredentials: true 
+      withCredentials: true
     })
-    .then(response => {
-      if (response.status === 200) {
-        setValue(response.data.rating.responseFromDb)
-        usersRating = response.data.rating.responseFromDb;
-      } else {
-        console.log("fail to set rating")
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      .then(response => {
+        if (response.status === 200) {
+          setValue(response.data.rating.responseFromDb)
+          usersRating = response.data.rating.responseFromDb;
+        } else {
+          console.log("fail to set rating")
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }, []);
 
-  
+
   const handleRatingClick = async (newValue: number | null) => {
-    console.log("newValue");
     setValue(newValue);
     const rating = { token: token, movieId: id, rating: newValue };
-      axios.post('http://localhost:4000/setRatings', rating, {
-        withCredentials: true 
+    axios.post('http://localhost:4000/setRatings', rating, {
+      withCredentials: true
+    })
+      .then(response => {
+        if (response.status === 200) {
+          console.log("set ratings")
+        } else {
+          console.log("fail to set rating")
+        }
       })
-        .then(response => {
-          if (response.status === 200) {
-            console.log("set ratings")
-          } else {
-            console.log("fail to set rating")
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   return (
@@ -67,6 +66,6 @@ export default function BasicRating(id: any) {
         emptyIcon=""
       />
     </Box>
-    
+
   );
 }

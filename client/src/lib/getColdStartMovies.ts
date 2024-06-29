@@ -8,13 +8,9 @@ import { API_BASE_URL } from "./../../config";
 
 export async function getPreferences(){
   let token = Cookies.get("token");
-  console.log(token);
-  // axios.post('http://localhost:4000/fetchPreferences', token)
   axios.post(`${API_BASE_URL}/fetchPreferences`, token)
   .then(response => {
-    console.log("get preferences");
     if (response.status === 200) {
-      //console.log(response.data.preferences)
       return response.data.preferences;
     } else {
       setError("Bad request. Please check your credentials.");
@@ -52,7 +48,6 @@ export async function getColdStartMovies(shuffle: boolean, year?: string, genre1
   if(year == null)(
     year = "0.0"
   )
-  //console.log(personName2)
   
 
   const url1 = `https://api.themoviedb.org/3/discover/movie?release_date.gte=${year}-01-01&sort_by=vote_count.desc&with_companies=${company}&with_genres=${genre1}%2C%20${genre2}%2C%20${genre3}&with_origin_country=${country}`;
