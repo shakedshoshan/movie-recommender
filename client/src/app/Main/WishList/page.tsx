@@ -1,24 +1,12 @@
 //"use client"
 import MoviesCarousel from "@/components/MoviesCarousel";
-import React, { useState }  from 'react'
-import { getDiscoverMovies, getMovieByID } from "@/lib/getMovies";
-import Cookies from 'js-cookie';
-import { useEffect } from 'react';
-import axios from 'axios';
+import React  from 'react'
+import { getMovieByID } from "@/lib/getMovies";
 import { cookies } from 'next/headers'
 import { getWishlistFromServer } from "@/lib/serverUtils";
-import { Movie } from "../../../../typings";
 
-// async function WishList({
-//   params: { id },
-//   searchParams: { genre },
-// }: {
-//   params: { id: string };
-//   searchParams: {
-//     genre: string;
-//   };
-// }) {
-//   const movies = await getDiscoverMovies(id);
+
+
 
 export default async function WishList() {
   // const token = Cookies.get("token");

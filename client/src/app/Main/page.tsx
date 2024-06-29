@@ -1,21 +1,11 @@
 //"use client"
-import { Movie } from "../../../typings";
 import CarouselBannerWrapper from "@/components/CarouselBannerWrapper";
-import MovieCardRating from "@/components/MovieCardRating";
 import MoviesCarousel from "@/components/MoviesCarousel";
-import Rating from "@/components/Rating";
-import { getColdStartMovies } from "@/lib/getColdStartMovies";
-import { getActorIDByName, getGenreIdByName, getMovieRecommendations, getMoviesByActor, getMoviesByGenre, getPersonIdByName, getPopularMovies, getTopRatedMovies } from "@/lib/getMovies";
-import { cn } from "@/lib/utils";
-import { ClassNames } from "@emotion/react";
-import { title } from "process";
-import WishListButton from "@/components/WishListButton";
-import Link from "next/link";
-import AddedToWishList from "@/components/AddedToWishList";
+import { getActorIDByName, getGenreIdByName, getMoviesByActor, getMoviesByGenre, getPopularMovies, getTopRatedMovies } from "@/lib/getMovies";
 import { Suspense } from "react";
 
 import { cookies } from 'next/headers'
-import { getRatingsFromServer, getUserPreferences } from "@/lib/serverUtils";
+import { getUserPreferences } from "@/lib/serverUtils";
 import ModelRecommends from "@/components/ModelRecommends";
 import LoadingComp from "@/components/LoadingComp";
 import ColdStartarusel from "@/components/ColdStartarusel";
