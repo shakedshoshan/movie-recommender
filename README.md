@@ -3,6 +3,10 @@
 This project is a full-stack web application that provides movie recommendations to users based on their ratings on movies.
 The application is containerized using Docker, making it easy to set up and run.
 
+
+![cinamte screen shot](https://github.com/user-attachments/assets/25dbde9e-becb-4eee-bee2-e37d915a004a)
+
+
 ## Features
 
 - Movie recommendation system using SVD algorithm
